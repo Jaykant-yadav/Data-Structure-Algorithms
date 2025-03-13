@@ -264,18 +264,60 @@ public class divideConquer {
      * Sample Input 2: nums = [2,2,1,1,1,2,2]
      * Sample Output 2:2
      */
+
+    //  Brute Force Approach - O(n^2)
     public static int majorityElement(int arr[]) {
-        int i = 0, j = 0;
+        int majorityEle = arr.length/2;
+        for(int i=0; i<arr.length; i++) {
+            int count = 0;
+            for(int j=0; j<arr.length; j++) {
+                if(arr[i] == arr[j]) {
+                    count++;
+                }
+            }
+            if(count > majorityEle) {
+                return arr[i];
+            }
+        }
+        return -1;
+    }
+
+    // Divide & Conquer Approach
+    public static int countInRange(int arr[], int num, int lo, int hi){
         int count = 0;
-        while (i <= arr.length && j <= arr.length) {
-            if(arr[i] == arr[j]) {
-                i++;
+        for(int i=0; i<arr.length; i++) {
+            if(arr[i] == num) {
                 count++;
-            } 
-            j++;
-            
+            }
         }
         return count;
+    }
+
+    public static int majorityElementRec(int arr[], int lo, int hi) {
+        // Base case : the Only element in an array of size 1 is the majority Element
+        if(lo == hi) {
+            return arr[lo];
+        }
+
+        // recurse on left and right halves of this slice
+        int mid = lo + (hi - lo) / 2;
+        int left = majorityElementRec(arr, lo, mid);
+        int right = majorityElementRec(arr, mid+1, hi);
+
+        //if the two halves agree on the majorityelement, return it
+        if(left == right) {
+            return left;
+        }
+
+        // otherwise, count each element and return the "winner"
+        int leftCount = countInRange(arr, left, lo, hi);
+        int rightCount = countInRange(arr, right, lo, hi);
+
+        return leftCount > rightCount ? left : right;
+    }
+
+    public static int majorityelement1(int arr[]) {
+        return majorityElementRec(arr, 0, arr.length-1);
     }
 
     // Practice Question - 3 -> Hard
@@ -361,25 +403,13 @@ public class divideConquer {
         // }
 
         int nums[] = {2,2,1,1,1,2,2};
-        // System.out.println(majorityElement(nums));
+        System.out.println(majorityElement(nums));
+        System.out.println(majorityelement1(nums));
 
         // mergeSort(str, 0, str.length);
 
         // int arr[] = { 2, 4, 1, 3, 5 };
         // countInversion(arr, 0, arr.length - 1);
         // System.out.println(count);
-
-        boolean var1 = true;
-
-                    boolean var2 = false;
-
-                    if (var1)
-
-                        System.out.println(var1);
-
-                    else
-
-                        System.out.println(var2);
-
     }
 }

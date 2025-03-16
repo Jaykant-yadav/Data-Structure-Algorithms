@@ -1,5 +1,7 @@
 package DSA.backtracking;
 
+import DSA.Strings.string;
+
 public class backtrack {
 
     public static void printArr(int arr[]) {
@@ -39,13 +41,30 @@ public class backtrack {
         // No Choice
         findSubsets(str, ans, i+1);
     }
+    // find permutations -> O(n * n!)
+    public static void findPermutations(String str, String ans) {
+        // base case
+        if(str.length() == 0){
+            System.out.println(ans);
+            return;
+        }
+
+        // recursion
+        for(int i=0; i<str.length(); i++) {
+            char curr = str.charAt(i);
+            // abcde = ab + de
+            String newStr = str.substring(0, i) + str.substring(i+1);
+            findPermutations(newStr, ans+curr);
+        }
+    }
     public static void main(String[] args) {
         // int arr[] = new int[5];
         // changeArr(arr, 0, 1);
         // printArr(arr);
 
         String str = "abc";
-        findSubsets(str, "", 0);
+        // findSubsets(str, "", 0);
+        findPermutations(str, "");
 
     }
 }

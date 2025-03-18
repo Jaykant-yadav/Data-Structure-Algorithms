@@ -1,3 +1,5 @@
+package plusLibrary.Amazon;
+
 public class EasyLevelQs {
     //Remove Duplicates from Sorted Arrays
     public static int removeDuplicatesSortedArr(int arr[]) {
@@ -98,6 +100,8 @@ public class EasyLevelQs {
         // No need to handle remaining elements in nums1 because they are already in their correct positions.
         // The merged array is now stored in nums1.
     }
+
+
     public static void printPascal(int n) {
         // Create a 2D integer array 'ans' to store Pascal's Triangle values.
         // The size is n x n, although not all cells will be used.
@@ -124,6 +128,16 @@ public class EasyLevelQs {
             System.out.println();
         }
     }
+
+    // Time Complexity -> O(n) (optimized solution)
+    public static int missingNumber(int num[]) {
+        int n_xor = num.length;
+        for(int i=0; i<num.length; i++) {
+            n_xor = n_xor ^ i;
+            n_xor = n_xor ^ num[i];
+        }
+        return n_xor;
+    }
     public static void main(String[] args) {
         // int arr[] = {0, 1, 1, 1, 2, 2, 3};
         // System.out.println(removeDuplicatesSortedArr(arr));
@@ -141,7 +155,14 @@ public class EasyLevelQs {
         //     System.out.print(nums1[i] + " ");
         // }
 
-        printPascal(5);
+        // printPascal(5);
+
+        int num[] = {3, 0, 1};
+
+        System.out.println(missingNumber(num));
+        System.out.println(num.length);
+        System.out.println(0^2);
+        // missingNumber2(num, 3);
 
     }
 }

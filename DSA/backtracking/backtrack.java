@@ -154,26 +154,26 @@ public class backtrack {
     // Sudoku Solver
     public static boolean isSafe(int sudoku[][], int row, int col, int digit) {
         // Column
-        for(int i=0; i<=8; i++) {
-            if(sudoku[i][col] == digit) {
+        for (int i = 0; i <= 8; i++) {
+            if (sudoku[i][col] == digit) {
                 return false;
             }
         }
 
         // Row
-        for(int j=0; j<=8; j++) {
-            if(sudoku[row][j] == digit) {
+        for (int j = 0; j <= 8; j++) {
+            if (sudoku[row][j] == digit) {
                 return false;
             }
         }
 
         // grid
-        int sr = (row/3) * 3;
-        int sc = (col/3) * 3;
+        int sr = (row / 3) * 3;
+        int sc = (col / 3) * 3;
         // 3x3 grid
-        for(int i=sr; i<sr+3; i++) {
-            for(int j=sc; j<sc+3; j++) {
-                if(sudoku[i][j] == digit) {
+        for (int i = sr; i < sr + 3; i++) {
+            for (int j = sc; j < sc + 3; j++) {
+                if (sudoku[i][j] == digit) {
                     return false;
                 }
             }
@@ -181,26 +181,27 @@ public class backtrack {
 
         return true;
     }
-    public static boolean sudokuSolver(int sudoku[][], int row, int col) {  
+
+    public static boolean sudokuSolver(int sudoku[][], int row, int col) {
         // Base Case
-        if(row == 9 && col == 0) {
+        if (row == 9 && col == 0) {
             return true;
         }
         // Recursion
         int nextRow = row, nextCol = col + 1;
-        if(col + 1 == 9) {
+        if (col + 1 == 9) {
             nextRow = row + 1;
             nextCol = 0;
         }
 
-        if(sudoku[row][col] != 0) {
+        if (sudoku[row][col] != 0) {
             return sudokuSolver(sudoku, nextRow, nextCol);
         }
 
-        for(int digit=1; digit<=9; digit++) {
-            if(isSafe(sudoku, row, col, digit)){
+        for (int digit = 1; digit <= 9; digit++) {
+            if (isSafe(sudoku, row, col, digit)) {
                 sudoku[row][col] = digit;
-                if(sudokuSolver(sudoku, nextRow, nextCol)){ //soln exits
+                if (sudokuSolver(sudoku, nextRow, nextCol)) { // soln exits
                     return true;
                 }
                 sudoku[row][col] = 0;
@@ -210,13 +211,120 @@ public class backtrack {
         return false;
     }
 
-    public static void printSudoku(int sudoku[][]) {
-        for(int i=0; i<9; i++) {
-            for(int j=0; j<9; j++) {
+    public static void printSudoku(int sudoku[][]) { // sudoku print Fnx
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 System.out.print(sudoku[i][j] + " ");
             }
             System.out.println();
         }
+    }
+
+    // Rat in Maze
+    public static void ratInMaze(int x, int y, int maze[][], int n, String curr) {
+        // base case
+        if (x < 0 || y < 0 || x == n || y == n || maze[x][y] == 0) {
+            return;
+        }
+
+        if (x == n - 1 && y == n - 1) { // end of col & row
+            System.out.println(curr);
+        }
+
+        maze[x][y] = 0; // block
+        ratInMaze(x + 1, y, maze, n, curr + "D");// Row
+        ratInMaze(x, y - 1, maze, n, curr + "L");// Col
+        ratInMaze(x, y + 1, maze, n, curr + "R");// Col
+        ratInMaze(x - 1, y, maze, n, curr + "U");// Row
+
+        maze[x][y] = 1; // unblock
+    }
+
+    // Keypad Combination
+    final static char[][] l = {
+            {}, // -> 0
+            {}, // -> 1
+            { 'a', 'b', 'c' }, // -> 2
+            { 'd', 'e', 'f' }, // -> 3
+            { 'g', 'h', 'i' }, // -> 4
+            { 'j', 'k', 'l' }, // -> 5
+            { 'm', 'n', 'o' }, // -> 6
+            { 'p', 'q', 'r', 's' }, // -> 7
+            { 't', 'u', 'v' }, // -> 8
+            { 'w', 'x', 'y', 'z' } };// -> 9
+
+    public static void letterCombinations(String strNum) { // strNum-> DialPad number
+        int length = strNum.length();
+        if (length == 0) {
+            System.out.println(""); // Empty string not any combinations
+            return;
+        }
+        bfs(0, length, new StringBuilder(), strNum);// recursion pos->2->abc
+    }
+
+    public static void bfs(int pos, int length, StringBuilder sb, String strNum) {
+        if (pos == length) {
+            System.out.println(sb.toString());
+        } else {
+            char[] letters = l[Character.getNumericValue(strNum.charAt(pos))];// ghi
+            for (int i = 0; i < letters.length; i++) {// letter at iterate
+                bfs(pos + 1, length, new StringBuilder(sb).append(letters[i]), strNum);
+            }
+        }
+    }
+
+    // Knight's Tour
+    static int N = 8;
+
+    public static boolean isSafe(int x, int y, int sol[][]) {
+        return (x >= 0 && x < N && y >= 0 && y < N && sol[x][y] == -1);
+    }
+
+    public static void printSolution(int sol[][]) {
+        for (int x = 0; x < N; x++) {
+            for (int y = 0; y < N; y++)
+                System.out.print(sol[x][y] + " ");
+            System.out.println();
+        }
+    }
+
+    public static boolean solveKT() {
+        int sol[][] = new int[8][8];
+        for (int x = 0; x < N; x++) {
+            for (int y = 0; y < N; y++) {
+                sol[x][y] = -1;
+            }
+        }
+        int xMove[] = { 2, 1, -1, -2, -2, -1, 1, 2 };
+        int yMove[] = { 1, 2, 2, 1, -1, -2, -2, -1 };
+        // As the Knight starts from cell(0,0)
+        sol[0][0] = 0;
+        if (!solveKTUtil(0, 0, 1, sol, xMove, yMove)) {
+            System.out.println("Solution does not exist");
+            return false;
+        } else
+            printSolution(sol);
+        return true;
+    }
+
+    public static boolean solveKTUtil(int x, int y, int movei, int sol[][], int xMove[], int yMove[]) {
+        int k, next_x, next_y;
+        if (movei == N * N) {
+            return true;
+        }
+        for (k = 0; k < 8; k++) {
+            next_x = x + xMove[k];
+            next_y = y + yMove[k];
+            if (isSafe(next_x, next_y, sol)) {
+                sol[next_x][next_y] = movei;
+                if (solveKTUtil(next_x, next_y, movei + 1, sol, xMove, yMove)) {
+                    return true;
+                } else {
+                    sol[next_x][next_y] = -1; // backtracking
+                }
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) {
@@ -260,12 +368,24 @@ public class backtrack {
                 { 8, 2, 7, 0, 0, 9, 0, 1, 3 }
         };
 
-        if(sudokuSolver(sudoku, 0, 0)) {
-            System.out.println("solution exists");
-            printSudoku(sudoku);
+        if (sudokuSolver(sudoku, 0, 0)) {
+            // System.out.println("solution exists");
+            // printSudoku(sudoku);
         } else {
-            System.out.println("solution does not exits");
+            // System.out.println("solution does not exits");
         }
+
+        // Rate in a Maze
+        int maze[][] = { { 1, 0, 0, 0 },
+                { 1, 1, 0, 1 },
+                { 0, 1, 0, 0 },
+                { 1, 1, 1, 1 } };
+        int m = 4;
+        // ratInMaze(0, 0, maze, m, "");
+
+        // Keypad Combinations
+        // letterCombinations("24");
+        solveKT();
 
     }
 }

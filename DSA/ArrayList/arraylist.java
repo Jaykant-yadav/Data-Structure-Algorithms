@@ -15,7 +15,7 @@ public class arraylist {
         list.add(3);
         list.add(4);
         list.add(5);
-        list.add(2, 10); //-> O(n)
+        // list.add(2, 10); //-> O(n)
         // System.out.println(list.size());
 
         // Get Operations -> O(1)
@@ -129,9 +129,46 @@ public class arraylist {
         height.add(3);
         height.add(7);
 
-        System.out.println(mostWater1(height));
+        int target = 7;
+
+        // System.out.println(mostWater1(height));
+        System.out.println(pairSum(list, target));
 
         
+    }
+
+    // Pair sum - 1
+    // Brute force -> O(n^2)
+    public static boolean pairSum1(ArrayList<Integer> list, int target) {
+        for(int i=0; i<list.size(); i++) {
+            for(int j=i+1; j<list.size(); j++) {
+                int sum = list.get(i) + list.get(j);
+                if(sum == target) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Optimized Solution of Two pointer approach -> O(n)
+    public static boolean pairSum(ArrayList<Integer> list, int target) {
+        int lp = 0, rp = list.size()-1;
+        while (lp < rp) {
+            // Case - 1
+            if(list.get(lp) + list.get(rp) == target) {
+                return true;
+            }
+
+            // Case - 2
+            if(list.get(lp) + list.get(rp) > target) {
+                lp++;
+            } else {
+                // Case - 3 lp+rp > target
+                rp--;
+            }
+        }
+        return false;
     }
 
     // Container with stored most water -> Flipkart, Danzo

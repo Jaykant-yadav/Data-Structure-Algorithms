@@ -1,4 +1,5 @@
 package DSA.ArrayList;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class arraylist {
@@ -129,12 +130,52 @@ public class arraylist {
         height.add(3);
         height.add(7);
 
-        int target = 7;
+        ArrayList<Integer> lists = new ArrayList<>();
+        lists.add(11);
+        lists.add(15);
+        lists.add(6);
+        lists.add(8);
+        lists.add(9);
+        lists.add(10);
+        int target = 15;
 
         // System.out.println(mostWater1(height));
-        System.out.println(pairSum(list, target));
+        // System.out.println(pairSum(list, target));
+        // System.out.println(pairSum1(lists, target));
+        System.out.println(pairSum2(lists, target));
 
         
+    }
+
+    // Pair sum - 2
+    //optimised solution -> O(n)
+    public static boolean pairSum2(ArrayList<Integer> lists, int target) {
+        int bp = -1; //breaking point
+        int n = lists.size();
+        for(int i=0; i<lists.size(); i++) {
+            if(lists.get(i) > lists.get(i+1)) {//braking point
+                bp = i;
+                break;
+            }
+        }
+
+        int lp = bp+1; //smaller element
+        int rp = bp; //larger element
+        while (lp != rp) {
+            // Case - 1
+            int sum = lists.get(lp) + lists.get(rp);
+            if(sum == target) {
+                return true;
+            }
+            // Case - 2
+            if(sum < target) {
+                lp = (lp+1) % n;
+            } else {
+                // Case - 3
+                rp = (n + rp - 1) % n;
+            }
+        }
+        return false;
     }
 
     // Pair sum - 1

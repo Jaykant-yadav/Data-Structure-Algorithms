@@ -9,3 +9,5 @@
 -   Check if LL is a Palindrome - O(n), Sc -> O(1) `slow-fast concept`
 -   Detect a loop/cycle in a Linked List `slow-fast concept` Algo -> `floyd's cycle finding`
 -   Remove a loop/cycle in a Linked List `slow-fast approach` 
+-   Merge Sort on a Linked List 
+-   Zig-Zag Linked List

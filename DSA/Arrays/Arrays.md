@@ -1,1 +1,13 @@
 # Arrays
+-   Linear Search   `O(n)`
+-   Binary Search   `O(log n)`
+-   Largest And Smallest Number `O(n)`  
+-   Reverse Arrays  `O(n), O(1)`
+-   Print Sub-Arrays  `O(n^3)`
+-   Pair in An Array    `O(n^2)`
+-   Max Sub-Arrays Sum
+    -   Brute Force `O(n^3)`
+    -   Prefix Sum  `O(n^2)`
+    -   Kadan's Algo    `O(n)`
+-   Trapping Rain-Water `O(n)`
+-   Buy & Sell Stocks   `O(n)`

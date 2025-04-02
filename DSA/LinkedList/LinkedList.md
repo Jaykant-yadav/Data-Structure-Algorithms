@@ -11,3 +11,4 @@
 -   Remove a loop/cycle in a Linked List `slow-fast approach` 
 -   Merge Sort on a Linked List 
 -   Zig-Zag Linked List
+-   Doubly Linked List

@@ -194,7 +194,7 @@ public class revise {
         return maxProfit;
     }
 
-    // Twice value Appears in Array
+    // Twice value Appears in Array - O(n)
     public static boolean duplicateElement(int nums[]) {
         Arrays.sort(nums);
         for(int i=1; i<nums.length; i++) {
@@ -205,6 +205,7 @@ public class revise {
         return false;
     }
 
+    // 
     public static void main(String[] args) {
         int arr1[] = { -2, -3, -1 };
         int height[] = {4, 2, 0, 6, 3, 2, 5};

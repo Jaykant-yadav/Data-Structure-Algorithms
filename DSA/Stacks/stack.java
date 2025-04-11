@@ -47,7 +47,7 @@ public class stack {
         }
     }
 
-    // Stock Span Problem
+    // Stock Span Problem -> O(n)
     public static void stockSpan(int Stock[], int span[]) {
         Stack<Integer> s = new Stack<>();
         span[0] = 1;
@@ -69,6 +69,30 @@ public class stack {
             s.push(i);
         }
     }
+
+    // Next Greater Element - O(n)
+    public static int[] nextGreater(int arr[]) {
+        int nextGreater[] = new int[arr.length];
+        Stack<Integer> s2 = new Stack<>();
+
+        for(int i=arr.length-1; i>=0; i--) {
+            // 1 while
+            while (!s2.isEmpty() && arr[s2.peek()] <= arr[i]) {
+                s2.pop();
+            }
+
+            // 2 if-else
+            if(s2.isEmpty()) {
+                nextGreater[i] = -1;
+            }else {
+                nextGreater[i] = arr[s2.peek()];
+            }
+
+            // 3 push in s
+            s2.push(i);
+        }
+        return nextGreater;
+    }
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -86,11 +110,18 @@ public class stack {
         // reverseStack(s); //3, 2, 1
         // printStack(s);//1, 2, 3
 
-        int Stocks[] = {100, 80, 60, 70, 60, 85, 100};
+        /* int Stocks[] = {100, 80, 60, 70, 60, 85, 100};
         int span[] = new int[Stocks.length];
         stockSpan(Stocks, span);
         for(int i=0; i<span.length; i++) {
             System.out.print(span[i] + " ");
+        } */
+
+        int arr[] = {6, 8, 0, 1, 3};
+        int nextGreaters[] = nextGreater(arr);
+        for(int i=0; i<nextGreaters.length; i++) {
+            System.out.print(nextGreaters[i] + " ");
         }
+        System.out.println();
     }
 }

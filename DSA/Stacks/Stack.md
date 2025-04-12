@@ -12,3 +12,5 @@
     -   Next Greater Left
     -   Next Smallest Right
     -   Next Smallest Left
+-   Valid Parentheses - O(n)
+-   Duplicate Parentheses - O(n) -> `Google, Microsoft`

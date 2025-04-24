@@ -2,7 +2,8 @@ package DSA.Queues;
 
 import java.util.*;
 
-public class queue {
+public class QueueUsingTwoStack {
+    // Queues Using Two Stacks
     static class Queue {
         static Stack<Integer> s1 = new Stack<>();
         static Stack<Integer> s2 = new Stack<>();
@@ -45,6 +46,7 @@ public class queue {
         }
 
     }
+
     public static void main(String[] args) {
         Queue q = new Queue();
         q.add(1);

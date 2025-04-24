@@ -1,5 +1,5 @@
 package DSA.Queues;
-// Array in circular queue
+// circular queue using Array
 public class QueueImpArrWithCircular {
     static class Queue {
         static int arr[];

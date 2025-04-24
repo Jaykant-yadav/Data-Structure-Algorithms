@@ -1,5 +1,5 @@
 package DSA.Queues;
-
+// Queue implementation using linked list
 public class usingLinkedListQueueImp {
     static class Node {
         int data;

@@ -1,7 +1,7 @@
 package DSA.Queues;
 
 import java.util.*;
-
+// Queue Using Two Stack
 public class QueueUsingTwoStack {
     // Queues Using Two Stacks
     static class Queue {

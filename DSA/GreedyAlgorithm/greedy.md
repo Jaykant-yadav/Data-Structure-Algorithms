@@ -1,4 +1,5 @@
 ## Greedy Algorithm
 
 #### Questions
--   Activity Selection -> O(n)
+-   Activity Selection (sorted - O(n) or unsorted activity n(log n)) -> `Flipkart, Google, Facebook`
+-   Fractional Knapsack 

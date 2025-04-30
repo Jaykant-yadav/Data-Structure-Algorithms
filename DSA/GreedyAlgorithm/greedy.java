@@ -95,15 +95,81 @@ public class greedy {
 
 
     }
+
+    // Min Absolute Difference Pairs
+    public static int minAbsDiffPairs(int A[], int B[]) { //O(nlogn)
+        Arrays.sort(A);
+        Arrays.sort(B);
+
+        int minDiff = 0;
+        for(int i=0; i<A.length; i++) {
+            minDiff += Math.abs(A[i]-B[i]);
+        }
+        return minDiff;
+    }
+
+    // Max length Chain of pairs
+    public static void maxLengthChainOfPairs(int pairs[][]) { //O(nlogn)
+        Arrays.sort(pairs, Comparator.comparingDouble(o -> o[1]));
+
+        // First chain 
+        int chainLength = 1;
+        int chainEnd = pairs[0][1]; //last selected pair end // chain end
+
+        for(int i=1; i<pairs.length; i++) {
+            if(pairs[i][0] > chainEnd) {
+                chainLength++;
+                chainEnd = pairs[i][1];
+            }
+        }
+        System.out.println("Maximum length of chain of pairs: " + chainLength);
+    }
+
+    // Indian Coins
+    public static void indianCoins(Integer coins[], int amount) {
+        Arrays.sort(coins, Comparator.reverseOrder());
+        int countOfCoins = 0;
+        ArrayList<Integer> usedCoins = new ArrayList<>();
+        for (int i = 0; i < coins.length; i++) {
+            if(coins[i] <= amount) { // Changed < to <= to include the coin if it equals the amount
+                while (coins[i] <= amount) {
+                    amount -= coins[i];
+                    countOfCoins++;
+                    usedCoins.add(coins[i]);
+                    System.out.print(coins[i] + " ");
+                }
+            }
+        }
+        System.out.println("\nTotal coins used: " + countOfCoins);
+    }
     public static void main(String[] args) {
         /* int start[] = {1, 3, 0, 5, 8, 5};
         int end[] = {2, 4, 6, 7, 9, 9};
         activitySelections(start, end);  */
 
-        int value[] = {60, 100, 120};
+        /* int value[] = {60, 100, 120};
         int weight[] = {10, 20, 30};
         int W = 50;
-        fractionalKnapsack(value, weight, W);
+        fractionalKnapsack(value, weight, W); */
+
+        /* int A[] = {1, 2, 3};
+        int B[] = {2, 1, 3};
+        int minDiff = minAbsDiffPairs(A, B);
+        System.out.println("Minimum Absolute Difference: " + minDiff);
+        
+
+        int C[] = {4, 1, 8, 7};
+        int D[] = {2, 3, 6, 5};
+        int minDiff2 = minAbsDiffPairs(C, D);
+        System.out.println("Minimum Absolute Difference for new arrays: " + minDiff2); */
+/* 
+        int pairs[][] = {{5, 24}, {39, 60}, {5, 28}, {27, 40}, {50, 90}};
+        maxLengthChainOfPairs(pairs); */
+
+        Integer coins[] = {1, 2, 5, 10, 20, 50, 100, 500, 2000};
+        int amount = 1112;
+        indianCoins(coins, amount);
+        
                 
     }
 }

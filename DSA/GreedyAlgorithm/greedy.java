@@ -142,6 +142,21 @@ public class greedy {
         }
         System.out.println("\nTotal coins used: " + countOfCoins);
     }
+
+    // Job Sequencing Problem
+    // Class Object Defined
+    static class Job {
+        int deadline;
+        int profit;
+        int id; // 0(A), 1(B), 2(C)
+
+        // Constructor
+        public Job(int i, int d, int p) {
+            id = i;
+            deadline = d;
+            profit = p;
+        }
+    }
     public static void main(String[] args) {
         /* int start[] = {1, 3, 0, 5, 8, 5};
         int end[] = {2, 4, 6, 7, 9, 9};
@@ -166,10 +181,38 @@ public class greedy {
         int pairs[][] = {{5, 24}, {39, 60}, {5, 28}, {27, 40}, {50, 90}};
         maxLengthChainOfPairs(pairs); */
 
-        Integer coins[] = {1, 2, 5, 10, 20, 50, 100, 500, 2000};
+        /* Integer coins[] = {1, 2, 5, 10, 20, 50, 100, 500, 2000};
         int amount = 1112;
-        indianCoins(coins, amount);
+        indianCoins(coins, amount); */
         
-                
+        // Job Sequence
+        int jobInfo[][] = {{4, 20}, {1, 10}, {1, 40}, {1, 30}};    
+
+        ArrayList<Job> jobs = new ArrayList<>();
+        for (int i = 0; i < jobInfo.length; i++) {
+            jobs.add(new Job(i, jobInfo[i][0], jobInfo[i][1]));
+        }
+
+        // Object Lambda Sorting Function
+        Collections.sort(jobs, (obj1, obj2) -> obj2.profit - obj1.profit); // descending Order of profit
+
+        ArrayList<Integer> seq = new ArrayList<>();
+        int time = 0;
+        for(int i=0; i<jobs.size(); i++) {
+            Job curr = jobs.get(i);
+            if (curr.deadline > time) {
+                seq.add(curr.id);
+                time++;
+            }
+        }
+        System.out.println("Job sequence: " + seq);
+
+        // print Seq 
+        System.out.println("Max Jobs: " + seq.size());
+        for(int i=0; i<seq.size(); i++) {
+            System.out.print(seq.get(i) + " ");
+        }
+        System.out.println();
     }
 }
+

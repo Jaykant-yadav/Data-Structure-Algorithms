@@ -157,6 +157,71 @@ public class greedy {
             profit = p;
         }
     }
+
+    public static void jobSequenceProblem(int jobInfo[][]) {
+        ArrayList<Job> jobs = new ArrayList<>();
+        for (int i = 0; i < jobInfo.length; i++) {
+            jobs.add(new Job(i, jobInfo[i][0], jobInfo[i][1]));
+        }
+
+        // Object Lambda Sorting Function
+        Collections.sort(jobs, (obj1, obj2) -> obj2.profit - obj1.profit); // descending Order of profit
+
+        ArrayList<Integer> seq = new ArrayList<>();
+        int time = 0;
+        for(int i=0; i<jobs.size(); i++) {
+            Job curr = jobs.get(i);
+            if (curr.deadline > time) {
+                seq.add(curr.id);
+                time++;
+            }
+        }
+        System.out.println("Job sequence: " + seq);
+
+        // print Seq 
+        System.out.println("Max Jobs: " + seq.size());
+        for(int i=0; i<seq.size(); i++) {
+            System.out.print(seq.get(i) + " ");
+        }
+        System.out.println();
+    }
+
+    // Chocola Problem
+    public static void minCostOfChocola(Integer[] costVer, Integer[] costHor, int n, int m) {
+        Arrays.sort(costVer, Collections.reverseOrder());
+        Arrays.sort(costHor, Collections.reverseOrder());
+
+        int h = 0, v = 0;
+        int hp = 1, vp = 1;
+        int cost = 0;
+
+        while (h < costVer.length && v < costHor.length) {
+            if (costVer[v] <= costHor[h]) { //Horizontal cut
+                cost += vp * costHor[h];
+                hp++;
+                h++;
+            } else { //Vertical cut
+                cost += hp * costVer[v];
+                vp++;
+                v++;
+            }
+        }
+
+        while (h < costHor.length) {
+            cost += vp * costHor[h];
+            hp++;
+            h++;
+        }
+
+        while (v < costVer.length) {
+            cost += hp * costVer[v];
+            vp++;
+            v++;
+        }
+
+        System.out.println("min cost of cuts = " + cost);
+    }
+
     public static void main(String[] args) {
         /* int start[] = {1, 3, 0, 5, 8, 5};
         int end[] = {2, 4, 6, 7, 9, 9};
@@ -186,33 +251,15 @@ public class greedy {
         indianCoins(coins, amount); */
         
         // Job Sequence
-        int jobInfo[][] = {{4, 20}, {1, 10}, {1, 40}, {1, 30}};    
+        /* int jobInfo[][] = {{4, 20}, {1, 10}, {1, 40}, {1, 30}};    
+        jobSequenceProblem(jobInfo); */
 
-        ArrayList<Job> jobs = new ArrayList<>();
-        for (int i = 0; i < jobInfo.length; i++) {
-            jobs.add(new Job(i, jobInfo[i][0], jobInfo[i][1]));
-        }
+        int n = 4, m = 6;
+        Integer costVer[] = {2, 1, 3, 1, 4};//m-1
+        Integer costHor[] = {4, 1, 2}; //n-1
+        minCostOfChocola(costVer, costHor, n, m);
 
-        // Object Lambda Sorting Function
-        Collections.sort(jobs, (obj1, obj2) -> obj2.profit - obj1.profit); // descending Order of profit
 
-        ArrayList<Integer> seq = new ArrayList<>();
-        int time = 0;
-        for(int i=0; i<jobs.size(); i++) {
-            Job curr = jobs.get(i);
-            if (curr.deadline > time) {
-                seq.add(curr.id);
-                time++;
-            }
-        }
-        System.out.println("Job sequence: " + seq);
-
-        // print Seq 
-        System.out.println("Max Jobs: " + seq.size());
-        for(int i=0; i<seq.size(); i++) {
-            System.out.print(seq.get(i) + " ");
-        }
-        System.out.println();
     }
 }
 

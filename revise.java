@@ -205,7 +205,6 @@ public class revise {
         return false;
     }
 
-    // 
     public static void main(String[] args) {
         int arr1[] = { -2, -3, -1 };
         int height[] = {4, 2, 0, 6, 3, 2, 5};

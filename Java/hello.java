@@ -2,6 +2,8 @@ package Java;
 
 import java.util.*;
 
+import DSA.Stacks.stack;
+
 public class hello {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -382,9 +384,194 @@ public class hello {
          * System.out.println("I am escape sequence \" double quotes");
          */
 
+        // String name = "JAYKANT kumar kckkk ";
+        // System.out.println(name.toLowerCase());
+        // System.out.println(name.replace(" ", "_"));
+
+        /*
+         * String letter = "Dear <|name|>, Thanks a lot!";
+         * System.out.println(letter.replace("<|name|>", "Jaykant"));
+         */
+
+        /*
+         * System.out.println(name.indexOf("  "));
+         * System.out.println(name.indexOf("   "));
+         */
+
+        /*
+         * String letter = "Dear Harry,\n\t this java course is nice.\n\t Thanks";
+         * System.out.println(letter);
+         */
+
+        /* int a = 9;
+        int b = 5;
+
+        hello obj = new hello(); //outer class of object
+        int squre = squre(a, b);
+        System.out.println("squre : " + squre);
+
+        calculator obj2 = obj.new calculator();//Inner class of object
+        int substract = obj2.substract(a, b);
+        System.out.println("substract : " + substract);
+
+        Innerhello obj3 = obj2.new Innerhello();//Inner class of Inner class of object
+        int add = obj3.add(a, b);
+        System.out.println("add: " + add);
+
+        name objName = new name(); //access class outside of main class
+        System.out.println(objName.greet());
+        System.out.println(objName.name("Jaykant")); */
+/* 
+        int a = 70;
+        int b = 80;
+        sum(a, b);
+        System.out.println(a + " " + b); */
+/* 
+        hello s1 = new hello("Jaykant");
+        hello s2 = new hello("Anjali");
+
+        s1.display();
+        s2.display();
+
+        hello.changeCollege("XYZ University"); // Call static method
+
+        s1.display();
+        s2.display(); */
+
+        // System.out.println(num);
+
+       /*  int x = 10;
+        changeValue(x);
+        System.out.println(x); */
+
+        /* int marks[] = {58, 98, 59, 86};
+        System.out.println("Before updated marks: " + marks[0]);
+        changeMarks(marks);
+        System.out.println("Updated marks: " + marks[0]);
+
+        int x = 20;
+        int y = 30;
+        System.out.println("Before change: x = " + x + ", y = " + y);
+        changeValue(x);
+        changeValue(y);
+        System.out.println("After change: x = " + x + ", y = " + y); */
+
+        // Method Overloading
+        /* greet("Jaykant"); //Arguments are actual values
+        greet(); */
+
+        /* int a = 5;
+        int b = 10;
+        int c = 15;
+
+        hello cal = new hello();
+        System.out.println("Sum of a and b: " + cal.add(a, b));
+        System.out.println("Sum of a, b and c: " + cal.add(a, b, c));
+        cal.add("jjkjkj"); */
+
+        System.out.println(sum(1, 2, 5, 8, 8, 85));
+
+
     }
 
-    public static void rightSwap(int nums[]) {
-        
+    static int sum(int ...arr) {
+        int res = 0;
+        for(int a: arr) {
+            res += a;
+        }
+        return res;
+    }
+    // Method with 2 int parameters
+    void add(String name) {
+        System.out.println("Hello, " + name);
+    }
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    // Overloaded method with 3 int parameters
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    // Overloaded method with 2 double parameters
+    double add(double a, double b) {
+        return a + b;
+    }
+
+    // Overloaded method with different parameter order
+    int add(int a, double b) {
+        return (int)(a + b);
+    }
+
+    int add(double a, int b) {
+        return (int)(a + b);
+    }
+
+    static void greet(String name) { //name is a parameter
+        System.out.println("Hello, " + name);
+    }
+
+    static void greet() {
+        System.out.println("Hello, Jaykant");
+    }
+
+    static void changeMarks(int marks[]) {
+        marks[0] = 60;
+    }
+    static void changeValue(int x) {
+        x = 48;
+    }
+    /* static int num;
+
+    static {
+        num = 8;
+        System.out.println("The value of num is: " + num);
+    } */
+
+    /* static String college = "ABC College";  // static variable
+    String name;
+
+    hello(String name) {
+        this.name = name;
+    }
+
+    static void changeCollege(String newCollege) {
+        college = newCollege; // static method
+    }
+
+    void display() {
+        System.out.println("Name: " + name + ", College: " + college);
+    }
+
+    public static void sum(int a, int b) {
+        // a = 8; 
+        // b = 9;   
+        System.out.println(a + " " + b);         
+    }
+ */
+
+
+    static int squre(int a, int b) {
+        return a * b;
+    }
+
+    int multPly(int a, int b) {
+        return a * b;
+    }
+
+    int sumOfNum(int a, int b) {
+        return a + b;
+    }
+}
+
+// outside of main class
+class name {
+    String name(String name) {
+        return name;
+    }
+    
+    String greet() {
+        return "Hello, " + name("Jaykant") + "!";
     }
 }

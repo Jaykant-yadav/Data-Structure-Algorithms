@@ -5,4 +5,6 @@
 4.  Stack Using Two Queue
 5.  Queue Using Two Stack
 6.  First non-repeating letter in a stream of character - `Flipkart`
-7.   InterLeave Two Halves of a Queue - 
+7.  InterLeave Two Halves of a Queue - 
+8.  Queue Reversal - O(n), O(n)
+9.  Stack & Queue Using Deque

@@ -1,5 +1,7 @@
 package DSA.Binary_Tree;
 import java.util.*;
+
+import DSA.Stacks.stack;
 public class BinaryTrees { 
     // Tree Build Code - O(n)
     static class Node { 
@@ -121,6 +123,79 @@ public class BinaryTrees {
         return leftSum + rightSum + root.data;
     }
 
+    // Diameter of a trees
+    public static int diameterOfTree(Node root) {//O(n^2)
+        if(root == null) {
+            return 0;
+        }
+
+        int leftDiam = diameterOfTree(root.left);
+        int leftHeight = height(root.left);
+        int rightDiam = diameterOfTree(root.right);
+        int rightHeight = height(root.right);
+
+        int selfDiam = leftHeight + rightHeight + 1;
+        return Math.max(Math.max(leftDiam, rightDiam), selfDiam);
+    }
+
+    static class Info {
+        int diameter;
+        int height;
+
+        Info(int diameter, int height) {
+            this.diameter = diameter;
+            this.height = height;
+        }
+    }
+
+    public static Info diameter2(Node root) { //O(n)
+        if(root == null) {
+            return new Info(0, 0);
+        }
+
+        Info leftInfo = diameter2(root.left);
+        Info rightInfo = diameter2(root.right);
+
+        int currDiam = leftInfo.height + rightInfo.height + 1;
+        int maxDiam = Math.max(Math.max(leftInfo.diameter, rightInfo.diameter), currDiam);
+
+        int ht = Math.max(leftInfo.height, rightInfo.height) + 1;
+
+        return new Info(maxDiam, ht);
+    }
+
+
+    // Subtree Of Another Tree
+
+    public static boolean isSubtree(Node root, Node subRoot) {
+        if(root == null || subRoot == null) {
+            return false;
+        }
+        if(root.data == subRoot.data) {
+            if(isIdentical(root, subRoot)) {
+                return true;
+            }
+        }
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    public static boolean isIdentical(Node node, Node subRoot) {
+        if(node == null && subRoot == null) {
+            return true;
+        } else if(node == null || subRoot == null || node.data != subRoot.data) {
+            return false;
+        }
+
+        if(!isIdentical(node.left, subRoot.left)) {
+            return false;
+        }
+
+        if(!isIdentical(node.right, subRoot.right)) {
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         /* int nodes[] = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
         BinaryTree tree = new BinaryTree();
@@ -149,8 +224,19 @@ public class BinaryTrees {
         root.right.left = new Node(6);
         root.right.right = new Node(7);
 
-        System.out.println(height(root));
+        /*
+         *              2
+         *             / \
+         *            4   5
+         */
+        Node subRoot = new Node(2);
+        subRoot.left = new Node(4);
+        subRoot.right = new Node(5);
+
+        /* System.out.println(height(root));
         System.out.println(count(root));
-        System.out.println(sumOfNodes(root));
+        System.out.println(sumOfNodes(root)); */
+        // System.out.println(diameter2(root).height);
+        System.out.println(isSubtree(root, subRoot));
     }
 }

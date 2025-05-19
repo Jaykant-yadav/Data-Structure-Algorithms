@@ -10,6 +10,7 @@ public class BSTree {
 
         Node(int data) {
             this.data = data;
+            this.left = this.right = null;
         }
     }
 
@@ -125,7 +126,48 @@ public class BSTree {
         path.remove(path.size()-1);
     }
 
-    // print tree
+    // isValid BST
+    public static boolean isValidBST(Node root, Node min, Node max) {
+        if(root == null) {
+            return true;
+        }
+
+        if(min != null && root.data <= min.data) {
+            return false;
+        }
+        else if(max != null && root.data >= max.data) {
+            return false;
+        }
+
+        return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
+    }
+
+    // Mirror a BST
+    public static Node createMirror(Node root) { // O(n)
+        if(root == null) {
+            return null;
+        }
+
+        Node leftMirror = createMirror(root.left);
+        Node rightMirror = createMirror(root.right);
+        
+        root.left = rightMirror;
+        root.right = leftMirror;
+        return root;
+    }
+
+    // print preOrder Tree
+    public static void preOrder(Node root) {
+        if(root == null) {
+            return;
+        }
+
+        System.out.print(root.data +  " ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+
+    // print tree - InOrder
     public static void inorder(Node root) {
         if (root == null) {
             return;
@@ -136,8 +178,8 @@ public class BSTree {
     }
 
     public static void main(String[] args) {
-        // int values[] = {5, 1, 3, 4, 2, 7};
-        int values[] = {8, 5, 3, 6, 10, 11, 14};
+        int values[] = {5, 10, 3, 9, 2, 7};
+        // int values[] = {8, 5, 3, 6, 10, 11, 14 };
         Node root = null;
 
         for (int i = 0; i < values.length; i++) {
@@ -160,6 +202,15 @@ public class BSTree {
 
         // printInRange(root, 5, 12);
 
-        printRoot2Leaf(root, new ArrayList<>());
+        // printRoot2Leaf(root, new ArrayList<>());
+
+        /* if(isValidBST(root, null, null)) {
+            System.out.println("valid");
+        } else {
+            System.out.println("not valid");
+        } */
+
+        root = createMirror(root);
+        preOrder(root);
     }
 }

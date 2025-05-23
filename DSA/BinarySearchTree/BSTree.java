@@ -156,6 +156,52 @@ public class BSTree {
         return root;
     }
 
+    // Sorted array to Balanced BST
+    public static Node createBST(int arr[], int st, int end) {
+        if(st > end) {
+            return null;
+        }
+
+        int mid = (st+end)/2;
+        Node root = new Node(arr[mid]);
+        root.left = createBST(arr, st, mid-1);
+        root.right = createBST(arr, mid+1, end);
+        return root;
+    }
+
+    // Convert BST to Balanced BST
+    public static void getInorder(Node root, ArrayList<Integer> inorder) {
+        if(root == null) {
+            return;
+        }
+
+        getInorder(root.left, inorder);
+        inorder.add(root.data);
+        getInorder(root.right, inorder);
+    }
+
+    public static Node balanceBST(Node root) {
+        // inorder seq - O(n)
+        ArrayList<Integer> inorder = new ArrayList<>();
+        getInorder(root, inorder);
+
+        // sorted inorder -> balanced BST -> O(n)
+        root = createBST(inorder, 0, inorder.size()-1);
+        return root;
+    }
+
+    public static Node createBST(ArrayList<Integer> inorder, int st, int end) {
+        if(st > end) {
+            return null;
+        }
+
+        int mid = (st+end) / 2;
+        Node root = new Node(inorder.get(mid));
+        root.left = createBST(inorder, st, mid-1);
+        root.right = createBST(inorder, mid+1, end);
+        return root;
+    }
+
     // print preOrder Tree
     public static void preOrder(Node root) {
         if(root == null) {
@@ -178,13 +224,13 @@ public class BSTree {
     }
 
     public static void main(String[] args) {
-        int values[] = {5, 10, 3, 9, 2, 7};
+        // int values[] = {5, 10, 3, 9, 2, 7};
         // int values[] = {8, 5, 3, 6, 10, 11, 14 };
-        Node root = null;
+        // Node root = null;
 
-        for (int i = 0; i < values.length; i++) {
+        /* for (int i = 0; i < values.length; i++) {
             root = insert(root, values[i]);
-        }
+        } */
 
         // inorder(root);
 
@@ -210,7 +256,43 @@ public class BSTree {
             System.out.println("not valid");
         } */
 
-        root = createMirror(root);
+        /* root = createMirror(root);
+        preOrder(root); */
+
+        /* int arr[] = {3, 5, 6, 8, 10, 11, 12};
+        Node roots = createBST(arr, 0, arr.length-1);
+        preOrder(roots); */
+
+        /* 
+         *          8
+         *         / \
+         *        6   10
+         *       /      \
+         *      5       11
+         *     /          \
+         *    3            12
+         *  Given BST
+         */
+
+         Node root = new Node(8);
+         root.left = new Node(6);
+         root.left.left = new Node(5);
+         root.left.left.left = new Node(3);
+
+         root.right = new Node(10);
+         root.right.right = new Node(11);
+         root.right.right.right = new Node(12);
+
+         /* 
+         *          8
+         *        /   \
+         *       5      11
+         *     /   \   /  \
+         *    3     6 10   12
+         *   Expected BST
+         */
+
+        root = balanceBST(root);
         preOrder(root);
     }
 }

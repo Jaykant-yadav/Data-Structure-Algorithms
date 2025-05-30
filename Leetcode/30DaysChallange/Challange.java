@@ -397,8 +397,142 @@ public class Challange {
         }
     }
 
+    // Median of two sorted Array
+    private static int[] merge(int arr1[], int arr2[]) {
+        int n = arr1.length;
+        int m = arr2.length;
+        int ans[] = new int[n + m];
+
+        int i = 0, j = 0, k = 0;
+        while (i < n && j < m) {
+            if (arr1[i] < arr2[j]) {
+                ans[k++] = arr1[i++];
+            } else {
+                ans[k++] = arr2[j++];
+            }
+        }
+
+        while (n > i) {
+            ans[k++] = arr1[i++];
+        }
+
+        while (m > j) {
+            ans[k++] = arr2[j++];
+        }
+
+        return ans;
+    }
+
+    // Find Median
+    public static double median(int arr1[], int arr2[]) {
+        int res[] = merge(arr1, arr2);
+        int n = res.length;
+        System.out.println(n);
+        if (n % 2 == 0) {
+            return ((res[n / 2 - 1] + res[n / 2]) / 2.0);
+        } else {
+            return res[n / 2];
+        }
+    }
+
+    public static double median2(int arr1[], int arr2[]) {
+        int n = arr1.length;
+        int m = arr2.length;
+
+        int i = 0, j = 0, merge1 = 0, merge2 = 0;
+        for (int count = 0; count <= (n + m) / 2; count++) {
+            merge2 = merge1;
+            if (i < n && (j >= m || arr1[i] <= arr2[j])) {
+                merge1 = arr1[i++];
+            } else {
+                merge1 = arr2[j++];
+            }
+        }
+        int Total = n + m;
+        if (Total % 2 == 1) {
+            return (double) merge1;
+        } else {
+            return (double) (merge1 + merge2) / 2;
+        }
+    }
+
+    // Climbing Stairs
+    public static int climbStairs(int n) {
+        if (n <= 2)
+            return n;
+        int TotalWay = 0;
+        int stair = 1, stair2 = 2;
+
+        for (int i = 3; i <= n; i++) {
+            TotalWay = stair + stair2;
+            stair = stair2;
+            stair2 = TotalWay;
+        }
+
+        return TotalWay;
+    }
+
+    // Search in Rotated Sorted Array -> O(log n)
+    public static int rotatedArray2(int arr[], int tar) {
+        int st = 0, end = arr.length - 1;
+
+        while (st <= end) {
+            int mid = st + (end - st) / 2;
+
+            if (arr[mid] == tar) {
+                return mid;
+            }
+
+            // Left half is sorted
+            if (arr[st] <= arr[mid]) {
+                if (arr[st] <= tar && tar < arr[mid]) {
+                    end = mid - 1;
+                } else {
+                    st = mid + 1;
+                }
+            }
+            // Right half is sorted
+            else {
+                if (arr[mid] < tar && tar <= arr[end]) {
+                    st = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    // Peak Index in a Mountain Array
+    public static int peakIndex(int nums[]) {
+        for(int i=1; i<nums.length; i++) {
+            if(nums[i-1] > nums[i]) {
+                return i-1;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int peakIndex2(int arr[]) {
+        int st = 0, end = arr.length-1;
+
+        while (st < end) {
+            int mid = st + (end - st) / 2;
+            if(arr[mid] < arr[mid+1]) {
+                st = mid + 1;
+            } else {
+                end = mid;
+            }
+        }
+
+        return st;
+    }
+
     public static void main(String[] args) {
-        // int arr[] = {-1, 0, 1, 2, -1, -4};
+        int arr[] = {0, 1, 2, 3, 5, 3, 1};
+        System.out.println(peakIndex2(arr));
         /*
          * int arr[] = { 0, 0, 0 };
          * List<List<Integer>> result = threeSum(arr);
@@ -419,9 +553,13 @@ public class Challange {
          */
 
         // #6 day Two Sum
-        int arr[] = { 2, 7, 11, 15 };
-        int target = 9;
-        System.out.println(Arrays.toString(twoSum(arr, target)));
+        /*
+         * int arr[] = { 2, 7, 11, 15 };
+         * int target = 9;
+         * System.out.println(Arrays.toString(twoSum(arr, target)));
+         */
+
+        // System.out.println(climbStairs(5));
 
     }
 }

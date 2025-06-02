@@ -155,13 +155,13 @@ public class EasyLevelQs {
         //     System.out.print(nums1[i] + " ");
         // }
 
-        // printPascal(5);
+        printPascal(5);
 
         int num[] = {3, 0, 1};
 
-        System.out.println(missingNumber(num));
+        /* System.out.println(missingNumber(num));
         System.out.println(num.length);
-        System.out.println(0^2);
+        System.out.println(0^2); */
         // missingNumber2(num, 3);
 
     }

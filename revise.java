@@ -87,7 +87,7 @@ public class revise {
         System.out.println(tp);
     }
 
-    public static int maxSubArrSum(int nums[]) { // brute force -> O(n^3)
+    public static void maxSubArrSum(int nums[]) { // brute force -> O(n^3)
         int max = Integer.MIN_VALUE;
         int min = Integer.MAX_VALUE;
         int currSum = 0;
@@ -96,15 +96,15 @@ public class revise {
             for (int j = i; j < nums.length; j++) {
                 currSum = 0;
                 for (int k = i; k <= j; k++) {
-                    currSum += nums[k];
+                    currSum = currSum + nums[k];
                 }
                 System.out.println(currSum);
                 max = Math.max(max, currSum);
                 min = Math.min(min, currSum);
             }
         }
+        System.out.println("Max of SubArray sum : " + max);
         System.out.println("Min of SubArray sum : " + min);
-        return max;
     }
 
     // Optimized solution -> O(n^2) -> Prefix sum
@@ -205,11 +205,54 @@ public class revise {
         return false;
     }
 
+    public static void maxSubArrSum3(int arr[]) {
+        int currSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+        for(int i=0; i<arr.length; i++) {
+            for(int j=i; j<arr.length; j++) {
+                currSum = 0;
+                for(int k=i; k<=j; k++) {
+                    currSum += arr[k];
+                }
+
+                System.out.println(currSum);
+                if(maxSum < currSum) {
+                    maxSum = currSum;
+                }
+            }
+        }
+        System.out.println("Maxsum = " + maxSum);
+    }
+
+    public static int prefixSum(int nums[]) {
+        int maxSum = Integer.MIN_VALUE;
+        int currSum = 0;
+
+        int prefix[] = new int[nums.length];
+        
+        prefix[0] = nums[0];
+        for(int i=1; i<prefix.length; i++) {
+            prefix[i] = prefix[i-1] + nums[i];
+            System.out.println(prefix[i]);
+        }
+
+        for(int i=0; i<nums.length; i++) {
+            for(int j=i; j<nums.length; j++) {
+                currSum = i == 0 ? prefix[j] : prefix[j] - prefix[i-1];
+            }
+
+            maxSum = Math.max(maxSum, currSum);
+        }
+
+        return maxSum;
+    }
+
     public static void main(String[] args) {
-        int arr1[] = { -2, -3, -1 };
+        int nums[] = {1, -2, 6, -1, 3};
+        System.out.println("max sum : " + prefixSum(nums));
         int height[] = {4, 2, 0, 6, 3, 2, 5};
         int price[] = {7, 1, 5, 3, 6, 4};
-        int nums[] = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
+        int nums1[] = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
         // int index = linearSearch(arr1, 30);
         // System.out.println(binarySearch(arr1, 3));
         // printArr(arr1);
@@ -225,7 +268,8 @@ public class revise {
         // System.out.println(KadansAlgo(arr1));
         // System.out.println(trappedRainWater(height));
         // System.out.println(buyAndSellStocks(price));
-        System.out.println(duplicateElement(nums));
+        // System.out.println(duplicateElement(nums));
+
 
         // int nums[] = {-1};
         // singleNumber(nums);

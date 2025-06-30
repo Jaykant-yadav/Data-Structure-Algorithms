@@ -183,11 +183,11 @@ public class revise {
     public static int buyAndSellStocks(int price[]) {
         int buyPrice = Integer.MAX_VALUE;
         int maxProfit = 0;
-        for(int i=0; i<price.length; i++) {
-            if(buyPrice < price[i]) {
+        for (int i = 0; i < price.length; i++) {
+            if (buyPrice < price[i]) {
                 int profit = price[i] - buyPrice;
                 maxProfit = Math.max(maxProfit, profit);
-            }else {
+            } else {
                 buyPrice = price[i];
             }
         }
@@ -197,8 +197,8 @@ public class revise {
     // Twice value Appears in Array - O(n)
     public static boolean duplicateElement(int nums[]) {
         Arrays.sort(nums);
-        for(int i=1; i<nums.length; i++) {
-            if(nums[i-1] == nums[i]) {
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i - 1] == nums[i]) {
                 return true;
             }
         }
@@ -208,15 +208,15 @@ public class revise {
     public static void maxSubArrSum3(int arr[]) {
         int currSum = 0;
         int maxSum = Integer.MIN_VALUE;
-        for(int i=0; i<arr.length; i++) {
-            for(int j=i; j<arr.length; j++) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i; j < arr.length; j++) {
                 currSum = 0;
-                for(int k=i; k<=j; k++) {
+                for (int k = i; k <= j; k++) {
                     currSum += arr[k];
                 }
 
                 System.out.println(currSum);
-                if(maxSum < currSum) {
+                if (maxSum < currSum) {
                     maxSum = currSum;
                 }
             }
@@ -229,16 +229,16 @@ public class revise {
         int currSum = 0;
 
         int prefix[] = new int[nums.length];
-        
+
         prefix[0] = nums[0];
-        for(int i=1; i<prefix.length; i++) {
-            prefix[i] = prefix[i-1] + nums[i];
+        for (int i = 1; i < prefix.length; i++) {
+            prefix[i] = prefix[i - 1] + nums[i];
             System.out.println(prefix[i]);
         }
 
-        for(int i=0; i<nums.length; i++) {
-            for(int j=i; j<nums.length; j++) {
-                currSum = i == 0 ? prefix[j] : prefix[j] - prefix[i-1];
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i; j < nums.length; j++) {
+                currSum = i == 0 ? prefix[j] : prefix[j] - prefix[i - 1];
             }
 
             maxSum = Math.max(maxSum, currSum);
@@ -247,32 +247,419 @@ public class revise {
         return maxSum;
     }
 
+    public static int kadansAlgorithm(int arr[]) {
+        int max = Integer.MIN_VALUE;
+        int currSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            currSum = currSum + arr[i];
+            if (currSum < 0) {
+                currSum = 0;
+            }
+            max = Math.max(currSum, max);
+        }
+
+        return max;
+    }
+
+    public static int trappedRainWater2(int height[]) {
+        int n = height.length;
+        // left max boundry
+        int leftMax[] = new int[n];
+        leftMax[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+        }
+
+        // right max boundry
+        int rightMax[] = new int[n];
+        rightMax[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+        }
+
+        int trappedRainWater = 0;
+        // loop
+        for (int j = 0; j < height.length; j++) {
+            int waterLevel = Math.min(leftMax[j], rightMax[j]);
+            trappedRainWater += waterLevel - height[j];
+        }
+
+        return trappedRainWater;
+    }
+
+    public static int trappedRainWater3(int height[]) {
+        int left = 0, right = height.length - 1;
+        int leftMax = 0, rightMax = 0;
+        int Water = 0;
+
+        while (left <= right) {
+            if (height[left] < height[right]) {
+                if (height[left] >= leftMax) {
+                    leftMax = height[left];
+                } else {
+                    Water += leftMax - height[left];
+                }
+                left++;
+            } else {
+                if (height[right] >= rightMax) {
+                    rightMax = height[right];
+                } else {
+                    Water += rightMax - height[right];
+                }
+                right--;
+            }
+        }
+
+        return Water;
+    }
+
+    public static int buyAndSellStocks2(int price[]) {
+        int buyPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int i = 0; i < price.length; i++) {
+            int sellPrice = price[i];
+            if (buyPrice < sellPrice) {
+                int profit = sellPrice - buyPrice;
+                maxProfit = Math.max(profit, maxProfit);
+            } else {
+                buyPrice = sellPrice;
+            }
+        }
+
+        return maxProfit;
+    }
+
+    public static boolean twitchEle(int arr[]) { // O(n^2)
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean twitchEle2(int arr[]) { // O(n)
+        Arrays.sort(arr);
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i - 1] == arr[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Sorting -> BUbble, Selection, Insertion, Counting Sort
+    public static void bubbleSort(int arr[]) {
+        int swap = 0;
+        // outer loop -> turn
+        for (int turn = 0; turn < arr.length; turn++) {
+            // inner loop -> arr.length-1-turn
+            for (int j = 0; j < arr.length - 1 - turn; j++) {
+                // swap
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swap++;
+                }
+            }
+        }
+
+        System.out.println("Swap :" + swap);
+    }
+
+    public static void selectionSort(int arr[]) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int minPos = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[minPos] > arr[j]) {
+                    minPos = j;
+                }
+            }
+            int temp = arr[i];
+            arr[i] = arr[minPos];
+            arr[minPos] = temp;
+        }
+    }
+
+    public static void insertionSort(int arr[]) {
+        for (int i = 1; i < arr.length; i++) {
+            int curr = arr[i];
+            int prev = i - 1;
+            while (prev >= 0 && arr[prev] > curr) {
+                arr[prev + 1] = arr[prev];
+                prev--;
+            }
+            // Insertion
+            arr[prev + 1] = curr;
+        }
+    }
+
+    // Counting sort
+    public static void countSort(int arr[]) {
+        int largest = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            largest = Math.max(largest, arr[i]);
+        }
+
+        int count[] = new int[largest + 1];
+        for (int i = 0; i < arr.length; i++) {
+            count[arr[i]]++;
+        }
+
+        // Sorting
+        int j = 0;
+        for (int i = 0; i < count.length; i++) {
+            while (count[i] > 0) {
+                arr[j] = i;
+                j++;
+                count[i]--;
+            }
+        }
+    }
+
+    public static int findMinDifference(int[] arr, int m) {
+        if (arr.length < m)
+            return -1; // Not enough packets to distribute
+
+        Arrays.sort(arr); // Step 1: Sort the packet array
+
+        int minDiff = Integer.MAX_VALUE;
+
+        // Step 2: Slide window of size m and calculate difference
+        for (int i = 0; i <= arr.length - m; i++) {
+            int currentDiff = arr[i + m - 1] - arr[i]; // last - first in the window
+            minDiff = Math.min(minDiff, currentDiff); // update minimum
+        }
+
+        return minDiff;
+    }
+
+    // Majority Element
+    public static int majorityElement(int num[]) {
+        Arrays.sort(num);
+        int n = num.length;
+        int freq = 1, ans = num[0];
+        for (int i = 1; i < num.length; i++) {
+            if (num[i] == num[i - 1]) {
+                freq++;
+            } else {
+                freq = 1;
+                ans = num[i];
+            }
+
+            if (freq > n / 2) {
+                return ans;
+
+            }
+        }
+        return -1;
+
+    }
+
+    public static int majorityElement2(int num[]) {
+        int n = num.length;
+        for (int val : num) {
+            int freq = 0;
+            for (int el : num) {
+                if (el == val) {
+                    freq++;
+                }
+            }
+
+            if (freq > n / 2) {
+                return val;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int majorityElement3(int num[]) {
+        int freq = 0, ans = 0;
+        for (int i = 0; i < num.length; i++) {
+            if (freq == 0) {
+                ans = num[i];
+            }
+
+            if (ans == num[i]) {
+                freq++;
+            } else {
+                freq--;
+            }
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
-        int nums[] = {1, -2, 6, -1, 3};
-        System.out.println("max sum : " + prefixSum(nums));
-        int height[] = {4, 2, 0, 6, 3, 2, 5};
-        int price[] = {7, 1, 5, 3, 6, 4};
-        int nums1[] = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
-        // int index = linearSearch(arr1, 30);
-        // System.out.println(binarySearch(arr1, 3));
-        // printArr(arr1);
-        // reverseNum(arr1);
-        // System.out.println();
-        // printArr(arr1);
-        // int nums[] = largestndSmallest(arr1);
-        // printArr(nums);
-        // printSubArray(arr1);
-        // pairOfArray(arr1);
-        // System.out.println("max of subArray sum : " + maxSubArrSum(arr1));
-        // System.out.println("max of subArray sum : " + maxSubArrSum2(arr1));
-        // System.out.println(KadansAlgo(arr1));
-        // System.out.println(trappedRainWater(height));
-        // System.out.println(buyAndSellStocks(price));
-        // System.out.println(duplicateElement(nums));
+        Scanner sc = new Scanner(System.in);
+        int matrix[][] = new int[4][4];
 
+        int countCell = 0;
+        for (int i = 0; i < matrix[0].length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                // matrix[i][j] = sc.nextInt();
+            }
+        }
 
-        // int nums[] = {-1};
-        // singleNumber(nums);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                // System.out.print(matrix[i][j] + " ");
+            }
+            // System.out.println();
+        }
+
+        // searchINMatrix(matrix, 5);
+        // largestndSmallest(matrix);
+        // spiralMatrix(matrix);
+
+        int nums[] = { -1, 0, 1, 2, -1, -4 };
+        // System.out.println(threeSum(nums));
+
+        System.out.println(checkPrime(16));
+    }
+
+    public static boolean checkPrime(int n) {
+        for(int i=2; i<n; i++) {
+            if(n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean checkPrimeFrequency(int[] nums) {
+        for(int i=0; i<nums.length; i++) {
+            
+        }
+        return false;
+    }
+
+    public static List<List<Integer>> threesum(int nums[]) {
+        List<List<Integer>> lists = new ArrayList<>();
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
+                for (int k = j + 1; k < nums.length; k++) {
+                    List<Integer> list = new ArrayList<>();
+                    if ((nums[i] + nums[j] + nums[k]) == 0) {
+                        list.add(nums[i]);
+                        list.add(nums[j]);
+                        list.add(nums[k]);
+                        Collections.sort(list);
+                        if (!lists.contains(list)) {
+                            lists.add(list);
+                        }
+                    }
+                }
+            }
+        }
+        return lists;
+    }
+
+    public static List<List<Integer>> threeSum(int nums[]){
+        Arrays.sort(nums);
+        List<List<Integer>> lists = new ArrayList<>();
+
+        for(int i=0; i<nums.length-2; i++) {
+
+            if(i > 0 && nums[i] == nums[i-1]) continue;
+
+            int low = i+1;
+            int high = nums.length-1;
+
+            while (low < high) {
+                int sum = nums[i] + nums[low] + nums[high];
+
+                if(sum == 0) {
+                    lists.add(Arrays.asList(nums[i] , nums[low] , nums[high]));
+
+                    while (low < high && nums[low] == nums[low+1]) {
+                        low++;
+                    }
+
+                    while (low < high && nums[high] == nums[high-1]) {
+                        high--;
+                    }
+
+                    low++;
+                    high--;
+                } else if(sum < 0) {
+                    low++;
+                } else {
+                    high--;
+                }
+            }
+        }
+
+        return lists;
+    }
+
+    public static void spiralMatrix(int matrix[][]) {
+        int startCol = 0, endCol = matrix[0].length - 1;
+        int startRow = 0, endRow = matrix.length - 1;
+
+        while (startCol <= endCol && startRow <= endRow) {
+            // Top
+            for (int i = startCol; i <= endCol; i++) {
+                System.out.print(matrix[startRow][i] + " ");
+            }
+
+            // right
+            for (int i = startRow + 1; i <= endRow; i++) {
+                System.out.print(matrix[i][endCol] + " ");
+            }
+
+            // bottom
+            for (int i = endCol - 1; i >= startCol; i--) {
+                if (startRow == endRow) {
+                    break;
+                }
+                System.out.print(matrix[endRow][i] + " ");
+            }
+
+            // left
+            for (int i = endRow - 1; i >= startRow + 1; i--) {
+                if (startCol == endCol) {
+                    break;
+                }
+                System.out.print(matrix[i][startCol] + " ");
+            }
+
+            startCol++;
+            endCol--;
+            startRow++;
+            endRow--;
+        }
+    }
+
+    public static void largestndSmallest(int matrix[][]) {
+        int maxNum = Integer.MIN_VALUE;
+        int minNum = Integer.MAX_VALUE;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                maxNum = Math.max(maxNum, matrix[i][j]);
+                minNum = Math.min(minNum, matrix[i][j]);
+            }
+        }
+
+        System.out.println("largest number: " + maxNum);
+        System.out.println("smallest number: " + minNum);
+    }
+
+    public static void searchINMatrix(int matrix[][], int key) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (matrix[i][j] == key) {
+                    System.out.println("(" + i + ", " + j + ")");
+                }
+            }
+        }
     }
 
     public static void singleNumber(int nums[]) {

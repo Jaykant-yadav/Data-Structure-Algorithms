@@ -1,7 +1,8 @@
 import java.util.*;
+
 public class BinaryTrees {
     // Node Class
-    static class Node{
+    static class Node {
         int data;
         Node left;
         Node right;
@@ -14,46 +15,47 @@ public class BinaryTrees {
         }
     }
 
-    static class BinaryTree{
+    static class BinaryTree {
         static int idx = -1;
+
         // Build Tree
-        public static Node buildTree(int node[]){ //O(n)
+        public static Node buildTree(int node[]) { // O(n)
             idx++;
-            if(node[idx] == -1) {
+            if (node[idx] == -1) {
                 return null;
             }
 
             Node newNode = new Node(node[idx]);
-            newNode.left = buildTree(node); //left Node
-            newNode.right = buildTree(node); //right Node
+            newNode.left = buildTree(node); // left Node
+            newNode.right = buildTree(node); // right Node
 
             return newNode;
         }
 
         // PreOrder Traversal
         public static void preOrder(Node root) { // O(n)
-            if(root == null) {
+            if (root == null) {
                 return;
             }
-            System.out.print(root.data + " "); //root
-            preOrder(root.left); //left
-            preOrder(root.right); //right
+            System.out.print(root.data + " "); // root
+            preOrder(root.left); // left
+            preOrder(root.right); // right
         }
 
         // InOrder Traversal
         public static void InOrder(Node root) { // O(n)
-            if(root == null) {
+            if (root == null) {
                 return;
             }
 
-            InOrder(root.left); //left
-            System.out.print(root.data + " "); //root
+            InOrder(root.left); // left
+            System.out.print(root.data + " "); // root
             InOrder(root.right); // right
         }
- 
+
         // PostOrder Traversal
         public static void PostOrder(Node root) { // O(n)
-            if(root == null) {
+            if (root == null) {
                 return;
             }
 
@@ -63,9 +65,9 @@ public class BinaryTrees {
         }
 
         // Level Order Traversal
-        public static void levelOrderTraversal(Node root) {
+        public static void levelOrderTraversal(Node root) { // O(n)
             // check root null or not
-            if(root == null) {
+            if (root == null) {
                 return;
             }
 
@@ -77,40 +79,89 @@ public class BinaryTrees {
 
             // loop
             while (!q.isEmpty()) {
-                Node currNode = q.remove(); // q of one one element go outside
-                if(currNode == null) {
+                Node currNode = q.remove(); // q of one one element go outside and store in currNode
+                if (currNode == null) {
                     System.out.println();
-                    if(q.isEmpty()){
+                    if (q.isEmpty()) {
                         break;
-                    }else {
+                    } else {
                         q.add(null);
                     }
                 } else {
                     System.out.print(currNode.data + " ");
-                    if(currNode.left != null) {
+                    if (currNode.left != null) {
                         q.add(currNode.left);
                     }
 
-                    if(currNode.right != null) {
+                    if (currNode.right != null) {
                         q.add(currNode.right);
                     }
                 }
             }
-
         }
+
     }
 
-    
+    // Height of a Tree
+    public static int heightOfTree(Node root) { // O(n)
+        if (root == null) {
+            return 0;
+        }
+        int rightHeight = heightOfTree(root.right);
+        int leftHeight = heightOfTree(root.left);
+
+        return Math.max(rightHeight, leftHeight) + 1;
+    }
+
+    // Count of Nodes of a Tree
+    public static int countOfNodes(Node root) { // O(n)
+        if (root == null) {
+            return 0;
+        }
+
+        int leftCount = countOfNodes(root.left);
+        int rightCount = countOfNodes(root.right);
+        return (leftCount + rightCount) + 1;
+    }
+
+    // Sum of Nodes
+    public static int sumOfNodes(Node root) {
+        if(root == null) {
+            return 0;
+        }
+
+        int leftSum = sumOfNodes(root.left);
+        int rightSum = sumOfNodes(root.right);
+        return (leftSum + rightSum) + root.data;
+    }
+
     public static void main(String[] args) {
-        int node[] = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
+        int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree tree = new BinaryTree();
-        Node root = tree.buildTree(node);
+        // Node root = tree.buildTree(node);
         // System.out.println(root.data);
 
         // tree.preOrder(root);
         // tree.InOrder(root);
         // tree.PostOrder(root);
-        tree.levelOrderTraversal(root);
+        // tree.levelOrderTraversal(root);
+        /*
+         *       1
+         *      / \
+         *     2   3
+         *    /\   /\
+         *   4  5 6  7
+         */
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+        // System.out.println(heightOfTree(root));
+        // System.out.println(countOfNodes(root));
+        System.out.println(sumOfNodes(root));
 
     }
 }

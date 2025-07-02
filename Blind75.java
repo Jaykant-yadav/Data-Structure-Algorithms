@@ -90,6 +90,16 @@ public class Blind75 {
 
         return ans;
     }
+
+    // Kadane's Algorithm, maximum subarray sum
+    public static int KadanesAlog(int nums[]) {
+        int max = Integer.MIN_VALUE;
+        int currSum = 0;
+        for(int i=0; i<nums.length; i++){
+            max = Math.max(max, nums[i]);
+
+        }
+    }
     public static void main(String args[]) {
         int nums[] = {1, 2, 3, 4};
         int ans[] = productArray3(nums);

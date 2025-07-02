@@ -1,5 +1,7 @@
 import java.util.*;
 
+import DSA.Stacks.stack;
+
 public class Blind75 {
     // Two Sum - O(n^2)
     public static int[] twoSum(int num[], int target) {
@@ -96,15 +98,67 @@ public class Blind75 {
         int max = Integer.MIN_VALUE;
         int currSum = 0;
         for(int i=0; i<nums.length; i++){
-            max = Math.max(max, nums[i]);
+            currSum += nums[i];
+            if(currSum < 0) {
+                currSum = 0;
+            }
 
+            max = Math.max(max, currSum);
         }
+
+        return max;
+    }
+
+    //  Maximum Product Subarray
+    public static int maxProduct(int num[]) { //O(n^3)
+        int max = Integer.MIN_VALUE;
+        for(int i=0; i<num.length; i++) {
+            for(int j=i; j<num.length; j++){
+                int currProduct = 1;
+                for(int k=i; k<=j; k++) {
+                    currProduct *= num[k];
+                }
+                max = Math.max(max, currProduct);
+            }
+        }
+
+        return max;
+    }
+
+    public static int maxProduct2(int num[]) { //O(n^2)
+        int max = Integer.MIN_VALUE;
+        int currProduct = 1;
+        for(int i=0; i<num.length; i++) {
+            for(int j=i; j<num.length; j++){
+                currProduct *= num[j];
+                max = Math.max(max, currProduct);
+            }
+        }
+
+        return max;
+    }
+
+    // Optimal Solution -> O(n)
+    public static int maxProduct3(int num[]) {
+        int max = Integer.MIN_VALUE;
+        int prefix = 1, suffix = 1;
+        int n = num.length;
+        for(int i=0; i<n; i++){
+            if(prefix == 0) prefix = 1;
+            if(suffix == 0) suffix = 1;
+            prefix = prefix * num[i];
+            suffix = suffix * num[n-i-1];
+            max = Math.max(max, Math.max(prefix, suffix));
+        }
+
+        return max;
     }
     public static void main(String args[]) {
-        int nums[] = {1, 2, 3, 4};
+        int nums[] = {0, 2};
         int ans[] = productArray3(nums);
+        System.out.println(maxProduct3(nums));
         for(int num : ans) {
-            System.out.println(num);
+            // System.out.println(num);
         }
     }
 }

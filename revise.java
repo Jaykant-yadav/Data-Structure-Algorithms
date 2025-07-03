@@ -495,6 +495,53 @@ public class revise {
         return ans;
     }
 
+    // Diagonal Sum
+    public static int diagonalSum(int matrix[][]) {
+        int sum = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (i == j) {
+                    sum += matrix[i][j];
+                } else if(i+j == matrix.length-1){
+                    sum += matrix[i][j];
+                }
+            }
+        }
+        return sum;
+    }
+
+    public static int diagonalSum2(int matrix[][]){
+        int sum = 0;
+        for(int i=0; i<matrix.length; i++) {
+            // pd
+            sum += matrix[i][i];
+            // sd
+            if(i != matrix.length-i-1){
+                sum += matrix[i][matrix.length-i-1];
+            }
+        }
+
+        return sum;
+    }
+
+    // Search in Sorted Matrix
+    public static boolean searchinSortedMat(int matrix[][], int key){
+        int row = 0, col = matrix[0].length-1; //col length
+
+        while (row == matrix.length && col >= 0) {
+            if(matrix[row][col] == key) {
+                return true;
+            } else if(key < matrix[row][col]) {
+                col--;
+            } else {
+                row ++;
+            }
+        }
+        return false;
+    }
+
+   
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int matrix[][] = new int[4][4];
@@ -524,8 +571,8 @@ public class revise {
     }
 
     public static boolean checkPrime(int n) {
-        for(int i=2; i<n; i++) {
-            if(n % i == 0) {
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) {
                 return false;
             }
         }
@@ -533,8 +580,8 @@ public class revise {
     }
 
     public static boolean checkPrimeFrequency(int[] nums) {
-        for(int i=0; i<nums.length; i++) {
-            
+        for (int i = 0; i < nums.length; i++) {
+
         }
         return false;
     }
@@ -560,34 +607,35 @@ public class revise {
         return lists;
     }
 
-    public static List<List<Integer>> threeSum(int nums[]){
+    public static List<List<Integer>> threeSum(int nums[]) {
         Arrays.sort(nums);
         List<List<Integer>> lists = new ArrayList<>();
 
-        for(int i=0; i<nums.length-2; i++) {
+        for (int i = 0; i < nums.length - 2; i++) {
 
-            if(i > 0 && nums[i] == nums[i-1]) continue;
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
 
-            int low = i+1;
-            int high = nums.length-1;
+            int low = i + 1;
+            int high = nums.length - 1;
 
             while (low < high) {
                 int sum = nums[i] + nums[low] + nums[high];
 
-                if(sum == 0) {
-                    lists.add(Arrays.asList(nums[i] , nums[low] , nums[high]));
+                if (sum == 0) {
+                    lists.add(Arrays.asList(nums[i], nums[low], nums[high]));
 
-                    while (low < high && nums[low] == nums[low+1]) {
+                    while (low < high && nums[low] == nums[low + 1]) {
                         low++;
                     }
 
-                    while (low < high && nums[high] == nums[high-1]) {
+                    while (low < high && nums[high] == nums[high - 1]) {
                         high--;
                     }
 
                     low++;
                     high--;
-                } else if(sum < 0) {
+                } else if (sum < 0) {
                     low++;
                 } else {
                     high--;

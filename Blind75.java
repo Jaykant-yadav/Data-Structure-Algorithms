@@ -1,7 +1,4 @@
 import java.util.*;
-
-import DSA.Stacks.stack;
-
 public class Blind75 {
     // Two Sum - O(n^2)
     public static int[] twoSum(int num[], int target) {
@@ -153,10 +150,31 @@ public class Blind75 {
 
         return max;
     }
+
+     // Find Minimum in Rotated Sorted Array
+    public static int minRotatedArray(int arr[]) {
+        int min = Integer.MAX_VALUE;
+        int low = 0, high = arr.length-1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if(arr[low] <= arr[high]) {
+                min = Math.min(min, arr[low]);
+                break;
+            }
+            if(arr[low] <= arr[mid]){
+                min = Math.min(min, arr[low]);
+                low = mid + 1;
+            } else {
+                min = Math.min(min, arr[mid]);
+                high = mid - 1;
+            }
+        }
+        return min;
+    }
     public static void main(String args[]) {
-        int nums[] = {0, 2};
+        int nums[] = {3, 4, 5, 1, 2};
         int ans[] = productArray3(nums);
-        System.out.println(maxProduct3(nums));
+        System.out.println(minRotatedArray(nums));
         for(int num : ans) {
             // System.out.println(num);
         }

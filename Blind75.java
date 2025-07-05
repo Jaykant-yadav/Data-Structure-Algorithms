@@ -171,10 +171,69 @@ public class Blind75 {
         }
         return min;
     }
+
+    // 3 SUM
+    public static List<List<Integer>> threeSum(int nums[]) {
+        Arrays.sort(nums);
+        List<List<Integer>> lists = new ArrayList<>();
+        int n = nums.length;
+        for(int i=0; i<n; i++) {
+            if(i > 0 && nums[i] == nums[i-1]) continue;
+            int j = i+1, k = n-1;
+            while (j<k) {
+                List<Integer> list = new ArrayList<>();
+                int sum = nums[i] + nums[j] + nums[k];
+                if(sum > 0) {
+                    k--;
+                }else if(sum < 0) {
+                    j++;
+                } else {
+                    list.add(nums[i]);
+                    list.add(nums[j]);
+                    list.add(nums[k]);
+                    lists.add(list);
+                    j++;
+                    k--;
+                    while (j<k && nums[j] == nums[j-1]) {
+                        j++;
+                    }
+                }
+            }
+        }
+
+        return lists;
+    }
+
+    // Search in Rotated Sorted Array
+    public static int search(int nums[], int target){
+        int n = nums.length-1;
+        int st = 0, end = n-1;
+        while (st <= end) {
+            int mid = st + (end - st) / 2;
+            if(nums[mid] == target) {
+                return mid;
+            }
+
+            if(nums[st] <= nums[mid]) {
+                if(nums[st] <= target && target < nums[mid]){
+                    end = mid - 1;
+                }else {
+                    st = mid + 1;
+                }
+            }else {
+                if(nums[mid] < target && target <= nums[end]) {
+                    st = mid + 1;
+                }else {
+                    end = mid-1;
+                }
+            }
+        }
+        return -1;
+    }
     public static void main(String args[]) {
-        int nums[] = {3, 4, 5, 1, 2};
+        int nums[] = {4,5,6,7,0,1,2};
         int ans[] = productArray3(nums);
-        System.out.println(minRotatedArray(nums));
+        System.out.println(search(nums, 0));
         for(int num : ans) {
             // System.out.println(num);
         }

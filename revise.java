@@ -502,7 +502,7 @@ public class revise {
             for (int j = 0; j < matrix[0].length; j++) {
                 if (i == j) {
                     sum += matrix[i][j];
-                } else if(i+j == matrix.length-1){
+                } else if (i + j == matrix.length - 1) {
                     sum += matrix[i][j];
                 }
             }
@@ -510,14 +510,14 @@ public class revise {
         return sum;
     }
 
-    public static int diagonalSum2(int matrix[][]){
+    public static int diagonalSum2(int matrix[][]) {
         int sum = 0;
-        for(int i=0; i<matrix.length; i++) {
+        for (int i = 0; i < matrix.length; i++) {
             // pd
             sum += matrix[i][i];
             // sd
-            if(i != matrix.length-i-1){
-                sum += matrix[i][matrix.length-i-1];
+            if (i != matrix.length - i - 1) {
+                sum += matrix[i][matrix.length - i - 1];
             }
         }
 
@@ -525,49 +525,147 @@ public class revise {
     }
 
     // Search in Sorted Matrix
-    public static boolean searchinSortedMat(int matrix[][], int key){
-        int row = 0, col = matrix[0].length-1; //col length
+    public static boolean searchinSortedMat(int matrix[][], int key) {
+        int row = 0, col = matrix[0].length - 1; // col length
 
         while (row == matrix.length && col >= 0) {
-            if(matrix[row][col] == key) {
+            if (matrix[row][col] == key) {
                 return true;
-            } else if(key < matrix[row][col]) {
+            } else if (key < matrix[row][col]) {
                 col--;
             } else {
-                row ++;
+                row++;
             }
         }
         return false;
     }
 
-   
+    public static boolean palindrome(String str) {
+        int n = str.length();
+        for (int i = 0; i < n / 2; i++) {
+            if (str.charAt(i) != str.charAt(n - 1 - i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean isPalindrome(String s) {
+
+        String lowerString = s.toLowerCase();
+        String finalString = lowerString.replaceAll("[^a-zA-Z0-9]", "");
+
+        int size = finalString.length();
+        int left = 0;
+        int right = size - 1;
+
+        while (left < right) {
+            if (finalString.charAt(left) != finalString.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    public static double getShortestPath(String path) {
+        int x = 0, y = 0;
+        for (int i = 0; i < path.length(); i++) {
+            char ch = path.charAt(i);
+            if (ch == 'N') { // North
+                y++;
+            } else if (ch == 'E') { // East
+                x++;
+            } else if (ch == 'W') { // West
+                x--;
+            } else { // South
+                y--;
+            }
+        }
+
+        int x2 = x * x;
+        int y2 = y * y;
+
+        return Math.sqrt(x2 + y2);
+    }
+
+    public static String subString(String str, int si, int ed) {
+        String subStr = "";
+        for (int i = si; i < ed; i++) {
+            subStr += str.charAt(i);
+        }
+
+        return subStr;
+    }
+
+    public static String convertFirstLatterUpper(String str) {
+        StringBuilder sb = new StringBuilder("");
+        char ch = Character.toUpperCase(str.charAt(0));
+        sb.append(ch);
+        for (int i = 1; i < str.length(); i++) {
+            if (str.charAt(i) == ' ' && i < str.length() - 1) {
+                sb.append(str.charAt(i));
+                i++;
+                sb.append(Character.toUpperCase(str.charAt(i)));
+            } else {
+                sb.append(str.charAt(i));
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public static String stringCompression(String str) {
+        StringBuilder sb = new StringBuilder("");
+        Integer count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            count++;
+            while (i < str.length() - 1 && str.charAt(i) == str.charAt(i + 1)) {
+                count++;
+                i++;
+            }
+            sb.append(str.charAt(i));
+            if (count > 1) {
+                sb.append(count);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public static int stringCompression2(char chars[]) {
+        int index = 0;
+        int i = 0;
+        while (i < chars.length) {
+            char currChar = chars[i];
+            int count = 0;
+            while (i < chars.length && chars[i] == currChar) {
+                count++;
+                i++;
+            }
+
+            chars[index++] = currChar;
+
+            if (count > 1) {
+                String countStr = String.valueOf(count);
+                for (char c : countStr.toCharArray()) {
+                    chars[index++] = c;
+                }
+            }
+        }
+
+        return index;
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int matrix[][] = new int[4][4];
+        String str = "aaaaaabbbbbbbdddddddddsssssssssgggggg";
+        char [] chars = {'a', 'a', 'b', 'b', 'c', 'c', 'c'};
+        System.out.println(stringCompression2(chars));
+        System.out.println(stringCompression(str));
 
-        int countCell = 0;
-        for (int i = 0; i < matrix[0].length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                // matrix[i][j] = sc.nextInt();
-            }
-        }
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                // System.out.print(matrix[i][j] + " ");
-            }
-            // System.out.println();
-        }
-
-        // searchINMatrix(matrix, 5);
-        // largestndSmallest(matrix);
-        // spiralMatrix(matrix);
-
-        int nums[] = { -1, 0, 1, 2, -1, -4 };
-        // System.out.println(threeSum(nums));
-
-        System.out.println(checkPrime(16));
     }
 
     public static boolean checkPrime(int n) {

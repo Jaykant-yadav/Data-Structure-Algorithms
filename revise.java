@@ -635,6 +635,8 @@ public class revise {
         return sb.toString();
     }
 
+    
+
     public static int stringCompression2(char chars[]) {
         int index = 0;
         int i = 0;
@@ -659,12 +661,35 @@ public class revise {
         return index;
     }
 
+    public static int luckyNum(int nums[]){
+        int max = Integer.MIN_VALUE;
+        for(int i=0; i<nums.length; i++) {
+            max = Math.max(max, nums[i]);
+        }
+
+        int freq[] = new int[max+1];
+        for(int num : nums){
+            freq[num]++;
+        }
+
+        int ans = 0;
+        int minFreq = 0;
+
+        for(int i=0; i<freq.length; i++) {
+            if(freq[i] > minFreq){
+                minFreq = freq[i];
+                ans = i;
+            }
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String str = "aaaaaabbbbbbbdddddddddsssssssssgggggg";
-        char [] chars = {'a', 'a', 'b', 'b', 'c', 'c', 'c'};
-        System.out.println(stringCompression2(chars));
-        System.out.println(stringCompression(str));
+        int arr[] = {2, 2, 3, 4};
+        System.out.println(luckyNum(arr));
 
     }
 

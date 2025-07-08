@@ -635,8 +635,6 @@ public class revise {
         return sb.toString();
     }
 
-    
-
     public static int stringCompression2(char chars[]) {
         int index = 0;
         int i = 0;
@@ -661,22 +659,22 @@ public class revise {
         return index;
     }
 
-    public static int luckyNum(int nums[]){
+    public static int luckyNum(int nums[]) {
         int max = Integer.MIN_VALUE;
-        for(int i=0; i<nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             max = Math.max(max, nums[i]);
         }
 
-        int freq[] = new int[max+1];
-        for(int num : nums){
+        int freq[] = new int[max + 1];
+        for (int num : nums) {
             freq[num]++;
         }
 
         int ans = 0;
         int minFreq = 0;
 
-        for(int i=0; i<freq.length; i++) {
-            if(freq[i] > minFreq){
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] > minFreq) {
                 minFreq = freq[i];
                 ans = i;
             }
@@ -685,12 +683,34 @@ public class revise {
         return ans;
     }
 
+    public static boolean validAnagram(String str, String str2) {
+        char ch[] = str.toCharArray();
+        char ch2[] = str2.toCharArray();
+        Arrays.sort(ch);
+        Arrays.sort(ch2);
+        if (Arrays.equals(ch, ch2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String str = "aaaaaabbbbbbbdddddddddsssssssssgggggg";
-        int arr[] = {2, 2, 3, 4};
-        System.out.println(luckyNum(arr));
+        // String str = "eat";
+        // String str2 = "ate";
+        // char ch[] = str.toCharArray();
+        // char ch2[] = str2.toCharArray();
+        /*
+         * Arrays.sort(ch);
+         * Arrays.sort(ch2);
+         * System.out.println(ch);
+         * System.out.println(ch2);
+         */
+        // System.out.println(validAnagram(str, str2));
 
+        String str[] = { "eat", "tea", "tan", "ate", "nat", "bat" };
+        System.out.println(groupAnagrams(str));
     }
 
     public static boolean checkPrime(int n) {

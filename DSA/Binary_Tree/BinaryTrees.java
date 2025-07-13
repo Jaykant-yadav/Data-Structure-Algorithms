@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.swing.tree.TreeNode;
+
 public class BinaryTrees {
     // Node Class
     static class Node {
@@ -135,6 +137,22 @@ public class BinaryTrees {
         return (leftSum + rightSum) + root.data;
     }
 
+    // Diameter of a tree
+    public static int diameterOfaTree(Node root){
+        if(root == null){
+            return 0;
+        }
+
+        int leftDia = diameterOfaTree(root.left); //left Dia
+        int rightDia = diameterOfaTree(root.right); //right Dia
+        int leftHeight = heightOfTree(root.left); //left Height
+        int rightHeight = heightOfTree(root.right); //right Height
+        int selfDia = leftHeight + rightHeight + 1; // leftHight + RightHeight + 1 = SelfDia
+        return Math.max(selfDia, Math.max(rightDia, leftDia)); //
+    }
+
+
+
     public static void main(String[] args) {
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree tree = new BinaryTree();
@@ -161,7 +179,8 @@ public class BinaryTrees {
         root.right.right = new Node(7);
         // System.out.println(heightOfTree(root));
         // System.out.println(countOfNodes(root));
-        System.out.println(sumOfNodes(root));
+        // System.out.println(sumOfNodes(root));
+        System.out.println(diameterOfaTree(root));
 
     }
 }

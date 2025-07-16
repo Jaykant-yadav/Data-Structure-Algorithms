@@ -1,7 +1,4 @@
 import java.util.*;
-
-import javax.swing.tree.TreeNode;
-
 public class BinaryTrees {
     // Node Class
     static class Node {
@@ -137,8 +134,9 @@ public class BinaryTrees {
         return (leftSum + rightSum) + root.data;
     }
 
-    // Diameter of a tree
-    public static int diameterOfaTree(Node root){
+    // Diameter of a tree - O(n^2)
+    // Approach - I
+    public static int diameterOfaTree(Node root){ 
         if(root == null){
             return 0;
         }
@@ -148,11 +146,32 @@ public class BinaryTrees {
         int leftHeight = heightOfTree(root.left); //left Height
         int rightHeight = heightOfTree(root.right); //right Height
         int selfDia = leftHeight + rightHeight + 1; // leftHight + RightHeight + 1 = SelfDia
-        return Math.max(selfDia, Math.max(rightDia, leftDia)); //
+        return Math.max(selfDia, Math.max(rightDia, leftDia)); // 
     }
 
+    // Approach - II - O(n)
+    static class Info{
+        int diam;
+        int ht;
 
+        public Info(int diam, int ht){
+            this.diam = diam;
+            this.ht = ht;
+        }
+    }
 
+    public static Info diameterOfaTree2(Node root){ //O(n)
+        if(root == null){
+            return new Info(0, 0);
+        }
+        Info leftInfo = diameterOfaTree2(root.left);
+        Info rightInfo = diameterOfaTree2(root.right);
+
+        int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht + rightInfo.ht + 1);
+        int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
+
+        return new Info(diam, ht);
+    }
     public static void main(String[] args) {
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree tree = new BinaryTree();
@@ -181,6 +200,8 @@ public class BinaryTrees {
         // System.out.println(countOfNodes(root));
         // System.out.println(sumOfNodes(root));
         System.out.println(diameterOfaTree(root));
+        System.out.println(diameterOfaTree2(root).diam);
+        System.out.println(diameterOfaTree2(root).ht);
 
     }
 }

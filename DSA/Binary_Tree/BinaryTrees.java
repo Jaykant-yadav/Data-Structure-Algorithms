@@ -134,7 +134,7 @@ public class BinaryTrees {
 
         return Math.max(rightHeight, leftHeight) + 1;
     }
-    
+
     // Diameter of a tree - O(n^2)
     // Approach - I
     public static int diameterOfaTree(Node root){ 
@@ -173,6 +173,40 @@ public class BinaryTrees {
 
         return new Info(diam, ht);
     }
+
+
+    // Subtree Of Another Tree
+    public static boolean Subtrees(Node root, Node subRoot){
+        if(root == null){
+            return false;
+        }
+
+        if(root.data == subRoot.data){
+            if(isIdentical(root, subRoot)){
+                return true;
+            }
+        }
+
+        return Subtrees(root.left, subRoot) || Subtrees(root.right, subRoot);
+    }
+
+    private static boolean isIdentical(Node root, Node subRoot){
+        if(root == null && subRoot == null){
+            return true;
+        }else if(root == null || subRoot == null || root.data != subRoot.data){
+            return false;
+        }
+
+        if(!isIdentical(root.left, subRoot.left)){
+            return false;
+        }
+
+        if(!isIdentical(root.right, subRoot.right)){
+            return false;
+        }
+
+        return true;
+    }
     public static void main(String[] args) {
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree tree = new BinaryTree();
@@ -197,12 +231,22 @@ public class BinaryTrees {
         root.left.right = new Node(5);
         root.right.left = new Node(6);
         root.right.right = new Node(7);
+        /* 
+         *      2
+         *     / \
+         *    4   5
+         */
+        Node subRoot = new Node(2);
+        subRoot.left = new Node(4);
+        subRoot.right = new Node(5);
         // System.out.println(heightOfTree(root));
         // System.out.println(countOfNodes(root));
         // System.out.println(sumOfNodes(root));
-        System.out.println(diameterOfaTree(root));
+       /*  System.out.println(diameterOfaTree(root));
         System.out.println(diameterOfaTree2(root).diam);
-        System.out.println(diameterOfaTree2(root).ht);
+        System.out.println(diameterOfaTree2(root).ht); */
+
+        System.out.println(Subtrees(root, subRoot));
 
     }
 }

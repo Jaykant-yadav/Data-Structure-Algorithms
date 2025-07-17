@@ -101,28 +101,18 @@ public class BinaryTrees {
 
     }
 
-    // Height of a Tree
-    public static int heightOfTree(Node root) { // O(n)
-        if (root == null) {
-            return 0;
-        }
-        int rightHeight = heightOfTree(root.right);
-        int leftHeight = heightOfTree(root.left);
-
-        return Math.max(rightHeight, leftHeight) + 1;
-    }
-
+    
     // Count of Nodes of a Tree
     public static int countOfNodes(Node root) { // O(n)
         if (root == null) {
             return 0;
         }
-
+        
         int leftCount = countOfNodes(root.left);
         int rightCount = countOfNodes(root.right);
         return (leftCount + rightCount) + 1;
     }
-
+    
     // Sum of Nodes
     public static int sumOfNodes(Node root) {
         if(root == null) {
@@ -133,7 +123,18 @@ public class BinaryTrees {
         int rightSum = sumOfNodes(root.right);
         return (leftSum + rightSum) + root.data;
     }
+    
+    // Height of a Tree
+    public static int heightOfTree(Node root) { // O(n)
+        if (root == null) {
+            return 0;
+        }
+        int rightHeight = heightOfTree(root.right);
+        int leftHeight = heightOfTree(root.left);
 
+        return Math.max(rightHeight, leftHeight) + 1;
+    }
+    
     // Diameter of a tree - O(n^2)
     // Approach - I
     public static int diameterOfaTree(Node root){ 

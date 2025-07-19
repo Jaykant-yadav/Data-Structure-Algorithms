@@ -208,7 +208,7 @@ public class BinaryTrees {
         return true;
     }
 
-
+    // Kth Level
     public static void kthLevel(Node root, int level, int k){
         if(root == null){
             return;
@@ -220,6 +220,49 @@ public class BinaryTrees {
 
         kthLevel(root.left, level+1, k);
         kthLevel(root.right, level+1, k);
+    }
+
+    // Lowest Common Ancestor
+    public static Node lca(Node root, int n1, int n2){
+        ArrayList<Node> path1 = new ArrayList<>();
+        ArrayList<Node> path2 = new ArrayList<>();
+
+        getPath(root, n1, path1);
+        getPath(root, n2, path2);
+        // Last common Ancestor
+        int i = 0;
+        for(; i<path1.size() && i<path2.size(); i++){
+            if(path1.get(i) != path2.get(i)){
+                break;
+            }
+        }
+
+        // Last equal node -> i-1th
+        Node lca = path1.get(i-1);
+
+        return lca;
+    }
+
+    public static boolean getPath(Node root, int n, ArrayList<Node> path){
+        if(root == null){
+            return false;
+        }
+        path.add(root);
+        if(root.data == n){
+            return true;
+        }
+
+        boolean foundLeft = getPath(root.left, n, path);
+        boolean foundRight = getPath(root.right, n, path);
+
+        if(foundLeft || foundRight){
+            return true;
+        }
+
+        path.remove(path.size()-1);
+
+        return false;
+
     }
     public static void main(String[] args) {
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -250,9 +293,9 @@ public class BinaryTrees {
          *     / \
          *    4   5
          */
-        Node subRoot = new Node(2);
+        /* Node subRoot = new Node(2);
         subRoot.left = new Node(4);
-        subRoot.right = new Node(5);
+        subRoot.right = new Node(5); */
         // System.out.println(heightOfTree(root));
         // System.out.println(countOfNodes(root));
         // System.out.println(sumOfNodes(root));
@@ -261,7 +304,10 @@ public class BinaryTrees {
         System.out.println(diameterOfaTree2(root).ht); */
 
         // System.out.println(Subtrees(root, subRoot));
-        kthLevel(root, 1, 3);
+        // kthLevel(root, 1, 3);
+
+        int n1 = 4, n2 = 5;
+        System.out.println(lca(root, n1, n2).data);
 
     }
 }

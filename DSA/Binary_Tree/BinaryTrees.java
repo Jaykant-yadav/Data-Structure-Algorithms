@@ -207,6 +207,20 @@ public class BinaryTrees {
 
         return true;
     }
+
+
+    public static void kthLevel(Node root, int level, int k){
+        if(root == null){
+            return;
+        }
+
+        if(level == k){
+            System.out.print(root.data + " ");
+        }
+
+        kthLevel(root.left, level+1, k);
+        kthLevel(root.right, level+1, k);
+    }
     public static void main(String[] args) {
         int node[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree tree = new BinaryTree();
@@ -246,7 +260,8 @@ public class BinaryTrees {
         System.out.println(diameterOfaTree2(root).diam);
         System.out.println(diameterOfaTree2(root).ht); */
 
-        System.out.println(Subtrees(root, subRoot));
+        // System.out.println(Subtrees(root, subRoot));
+        kthLevel(root, 1, 3);
 
     }
 }

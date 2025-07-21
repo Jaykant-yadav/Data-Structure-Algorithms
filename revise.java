@@ -1,6 +1,5 @@
 import java.util.*;
 
-import DSA.Strings.string;
 
 public class revise {
     public static int linearSearch(int nums[], int key) {
@@ -695,22 +694,282 @@ public class revise {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        // String str = "eat";
-        // String str2 = "ate";
-        // char ch[] = str.toCharArray();
-        // char ch2[] = str2.toCharArray();
-        /*
-         * Arrays.sort(ch);
-         * Arrays.sort(ch2);
-         * System.out.println(ch);
-         * System.out.println(ch2);
-         */
-        // System.out.println(validAnagram(str, str2));
+    public static int firstUniqChar(String s) {
+        int freq[] = new int[26];
+        for (char ch : s.toCharArray()) {
+            freq[ch - 'a']++;
+        }
 
-        String str[] = { "eat", "tea", "tan", "ate", "nat", "bat" };
-        System.out.println(groupAnagrams(str));
+        for (int i = 0; i < s.length(); i++) {
+            if (freq[s.charAt(i) - 'a'] == 1) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int threeSumClosets(int num[], int target) {
+        Arrays.sort(num);
+        int closetSum = num[0] + num[1] + num[2];
+        for (int i = 0; i < num.length - 2; i++) {
+            int low = i + 1, high = num.length - 1;
+
+            while (low < high) {
+                int currSum = num[i] + num[low] + num[high];
+
+                if (target == currSum) {
+                    return currSum;
+                }
+
+                if (Math.abs(currSum - target) < Math.abs(closetSum - target)) {
+                    closetSum = currSum;
+                }
+
+                if (currSum < target) {
+                    low++;
+                } else {
+                    high--;
+                }
+            }
+        }
+
+        return closetSum;
+    }
+
+    public static String contest(String s) {
+        StringBuilder result = new StringBuilder("");
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isLowerCase(ch)) {
+                result.append(ch);
+            } else if (ch == '*' && result.length() != 0) {
+                result.deleteCharAt(result.length() - 1);
+            } else if (ch == '#' && result.length() != 0) {
+                result.append(result);
+            } else if (ch == '%' && result.length() != 0) {
+                result.reverse();
+            }
+        }
+
+        return result.toString();
+    }
+
+    public static char contest2(String s, long k) {
+        StringBuilder result = new StringBuilder("");
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isLowerCase(ch)) {
+                result.append(ch);
+            } else if (ch == '*' && result.length() != 0) {
+                result.deleteCharAt(result.length() - 1);
+            } else if (ch == '#' && result.length() != 0) {
+                result.append(result);
+            } else if (ch == '%' && result.length() != 0) {
+                result.reverse();
+            }
+        }
+
+        char dot = '.';
+
+        if (result.length() > k) {
+            return result.charAt((int) k);
+        } else {
+            return dot;
+        }
+
+    }
+
+    public static char contest3(String s, long k) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            if (Character.isLowerCase(ch)) {
+                result.append(ch);
+            } else if (ch == '*' && result.length() > 0) {
+                result.deleteCharAt(result.length() - 1);
+            } else if (ch == '#' && result.length() > 0) {
+                String temp = result.toString(); // convert to string once
+                if (result.length() * 2 > k + 1) {
+                    // Only add up to k+1 characters to avoid unnecessary growth
+                    for (int j = 0; j < temp.length() && result.length() <= k; j++) {
+                        result.append(temp.charAt(j));
+                    }
+                } else {
+                    result.append(temp); // safe to double if still small
+                }
+            } else if (ch == '%' && result.length() > 0) {
+                result.reverse();
+            }
+        }
+
+        return k < result.length() ? result.charAt((int) k) : '.';
+    }
+
+    public static void sortColor(int arr[]) {
+        int count0 = 0, count1 = 0, count2 = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                count0++;
+            } else if (arr[i] == 1) {
+                count1++;
+            } else if (arr[i] == 2) {
+                count2++;
+            }
+        }
+
+        int j = 0;
+        while (count0-- > 0) {
+            arr[j++] = 0;
+        }
+        while (count1-- > 0) {
+            arr[j++] = 1;
+        }
+        while (count2-- > 0) {
+            arr[j++] = 2;
+        }
+    }
+
+    // Dutch National Flag Algorithm
+    public static void sortColor2(int arr[]) {
+        int mid = 0, low = 0, high = arr.length - 1;
+        while (mid <= high) {
+            if (arr[mid] == 0) {
+                int temp = arr[low];
+                arr[low] = arr[mid];
+                arr[mid] = temp;
+                mid++;
+                low++;
+            } else if (arr[mid] == 1) {
+                mid++;
+            } else {
+                int temp = arr[mid];
+                arr[mid] = arr[high];
+                arr[high] = temp;
+                high--;
+            }
+        }
+    }
+
+    // Median Of Two Sorted Arrays of Different Sizes
+        private static int[] merge(int nums1[], int nums2[]) {
+        int n = nums1.length;
+        int m = nums2.length;
+        int ans[] = new int[n+m];
+
+        int i=0, j=0, k=0;
+        while (i<n && j<m) {
+            if(nums1[i] < nums2[j]) {
+                ans[k++] = nums1[i++];
+            } else {
+                ans[k++] = nums2[j++];
+            }
+        }
+
+        while (n > i) {
+            ans[k++] = nums1[i++];
+        }
+
+        while (m > j) {
+            ans[k++] = nums2[j++];
+        }
+
+        return ans;
+    }
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int res[] =  merge(nums1, nums2);
+       int n = res.length;
+       if(n % 2 == 0) {
+        return ((res[n/2-1] + res[n/2]) / 2.0);
+       } else {
+        return res[n/2];
+       } 
+    }
+
+    public static double findMedianSortedArrays2(int nums1[], int nums2[]){
+        int n = nums1.length;
+        int m = nums2.length;
+
+        int i = 0, j = 0, merge1 = 0, merge2 = 0;
+        for(int count = 0; count<=(n+m)/2; count++) {
+            merge2 = merge1;
+            if(i<n && (j>=m || nums1[i] <= nums2[j])) {
+                merge1 = nums1[i++];
+            }else {
+                merge1 = nums2[j++];
+            }
+        }
+        int Total = n + m;
+        if(Total % 2 == 1) {
+            return (double) merge1;
+        }else {
+            return (double) (merge1 + merge2) / 2;
+        }
+    }
+
+    // Single Element in Sorted Array
+    public static int singleNumber2(int nums[]){
+        if(nums.length == 1) return nums[0];
+
+        for(int i=0; i<nums.length; i++) {
+            if(i == 0){
+                if(nums[i] != nums[i+1]) return nums[i];
+            }else if(i == nums.length-1){
+                if(nums[i] != nums[i-1]) return nums[i];
+            }else{
+                if(nums[i] != nums[i+1] && nums[i] != nums[i-1]) return nums[i];
+            }
+        }
+
+        return -1;
+    }
+
+    public static int singleNumber3(int nums[]){
+        int n = nums.length;
+        if(n == 1) return nums[0];
+        if(nums[0] != nums[1]) return nums[0];
+        if(nums[n-1] != nums[n-2]) return nums[n-1];
+        int low = 1, high = n-2;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if(nums[mid] != nums[mid+1] && nums[mid] != nums[mid-1]) return nums[mid];
+
+            // we are in left
+            if((mid % 2 == 1 && nums[mid] == nums[mid-1]) || (mid % 2 == 0 && nums[mid] == nums[mid+1])){
+                low = mid + 1;
+            }
+
+            // we are on right
+            else{
+                high = mid - 1;
+            }
+        }
+
+        return -1;
+    }
+
+    public static String makeFancyString(String s) {
+        StringBuilder sb = new StringBuilder("");
+        sb.append(s.charAt(0));
+        int count = 1;
+        for(int i=1; i<s.length(); i++) {
+            if(s.charAt(i) == s.charAt(i-1)){
+                count++;
+            }else {
+                count = 1;
+            }
+
+            if(count < 3){
+                sb.append(s.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+    public static void main(String[] args) {
+        String s = "leeetcode";
+        System.out.println(makeFancyString(s));
     }
 
     public static boolean checkPrime(int n) {

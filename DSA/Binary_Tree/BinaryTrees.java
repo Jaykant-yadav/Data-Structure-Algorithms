@@ -1,3 +1,5 @@
+package DSA.Binary_Tree;
+
 import java.util.*;
 public class BinaryTrees {
     // Node Class
@@ -223,6 +225,7 @@ public class BinaryTrees {
     }
 
     // Lowest Common Ancestor
+    // Approach -> I - O(n)
     public static Node lca(Node root, int n1, int n2){
         ArrayList<Node> path1 = new ArrayList<>();
         ArrayList<Node> path2 = new ArrayList<>();
@@ -263,6 +266,30 @@ public class BinaryTrees {
 
         return false;
 
+    }
+
+    // Approach - II
+    public static Node lca2(Node root, int n1, int n2){
+        
+        if(root == null || root.data == n1 || root.data == n2){
+            return root;
+        }
+
+        Node leftLca = lca2(root.left, n1, n2);
+        Node rightLca = lca2(root.right, n1, n2);
+        
+
+        // leftLca = val  rightLca == null
+        if (rightLca == null) {
+            return leftLca;
+        }
+
+        
+        if(leftLca == null){
+            return rightLca;
+        }
+
+        return root;
     }
 
     
@@ -308,8 +335,8 @@ public class BinaryTrees {
         // System.out.println(Subtrees(root, subRoot));
         // kthLevel(root, 1, 3);
 
-        int n1 = 4, n2 = 5;
-        System.out.println(lca(root, n1, n2).data);
+        int n1 = 4, n2 = 6;
+        System.out.println(lca2(root, n1, n2).data);
 
     }
 }

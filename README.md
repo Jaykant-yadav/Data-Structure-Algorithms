@@ -1,19 +1,29 @@
-# Data - Structure & Algorithms
-| Topics    | Links |
-| :---      | :-----|
-|Arrays     |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/Arrays)|
-|Sorting    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/Sorting)|
-|2DArrays    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/2DArrays)|
-|Strings    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/Strings)|
-|Bit Manipulation    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/bitManipulation)|
-|Recursion    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/recursion)|
-|Divide & Conquer    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/divideAndConquer)|
-|Backtracking    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/backtracking)|
-|ArrayLists    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/ArrayList)|
-|Linked List    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/LinkedList)|
-|Stacks    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/Stacks)|
-|Queues    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/Queues)|
-|Greedy Algorithms    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/GreedyAlgorithms)|
-|Binary Trees    |[Click](https://github.com/Jaykant-yadav/Data-Structure-Algorithms/tree/main/DSA/BinaryTrees)|
+# 📘 DSA Practice Repository
 
+This repository contains my personal solutions and notes for **Data Structures and Algorithms (DSA)**, prepared for coding interviews and competitive programming.
 
+---
+
+## 📌 Contents
+
+- ✅ Topic-wise Java solutions (Arrays, Strings, Trees, Graphs, etc.)
+- ✅ Brute force to optimized approaches
+- ✅ Common interview problems from LeetCode, GFG.
+- ✅ Time & space complexities included.
+- ✅ Notes for quick revision
+
+---
+
+## 🛠 Tech Stack
+
+- Language: Java  
+- Editor: VS Code  
+- Platforms: LeetCode, GFG.
+
+---
+
+## 🚀 Author
+
+**Jaykant Yadav**  
+Aspiring Software Engineer | CSE Student  
+[LinkedIn](https://www.linkedin.com/in/jaykantkumar).

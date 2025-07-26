@@ -298,11 +298,28 @@ public class recursion {
         return res;
     }
 
-    // System.out.println(countSubStr(str, 0, n-1, n));
+    public static int maxScore(int[] cardPoints, int k) {
+        int lsum = 0, rsum = 0, maxSum = 0;
+        for(int i=0; i<k; i++){
+            lsum = lsum + cardPoints[i];
+        }
+
+        maxSum = lsum;
+
+        int rindx = cardPoints.length-1;
+        for(int i=k-1; i>=0; i--){
+            lsum = lsum - cardPoints[i];
+            rsum = rsum + cardPoints[rindx];
+            rindx --;
+            maxSum = Math.max(maxSum, (lsum + rsum));
+        }
+
+        return maxSum;
+    }
+
     public static void main(String[] args) {
-        int arr[] = {4, 5, 1, 8, 9, 1,1,1};
-        String s = "appnacollege";
-        
+        int arr[] = {1,2,3,4,5,6,1};
+        System.out.println(maxScore(arr, 3));
 
     }
 }

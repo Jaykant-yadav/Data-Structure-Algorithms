@@ -27,10 +27,83 @@ public class HashingQs {
 
         return map.isEmpty();
     }
+
+    // Count Distinct Elements
+    public static void countDistinctEle(int nums[]){ //O(n)
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0; i<nums.length; i++){
+            set.add(nums[i]);
+        }
+
+        System.out.println("ans = " + set.size());
+    }
+
+    // Union & Intersection of 2 Arrays
+    // Union
+    public static int unionofArr(int arr1[], int arr2[]){
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0; i<arr1.length; i++){
+            set.add(arr1[i]);
+        }
+        for(int i=0; i<arr2.length; i++){
+            set.add(arr2[i]);
+        }
+
+        return set.size();
+    }
+
+    // Inter - Section
+    public static int interSection(int arr1[], int arr2[]){
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0; i<arr1.length; i++){
+            set.add(arr1[i]);
+        }
+
+        int count = 0;
+        for(int i=0; i<arr2.length; i++){
+            if(set.contains(arr2[i])){
+                count++;
+                set.remove(arr2[i]);
+            }
+        }
+
+        return count;
+    }
+
+    public static void unionAndInterSection(int arr1[], int arr2[]){
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0; i<arr1.length; i++){
+            set.add(arr1[i]);
+        }
+
+        for(int i=0; i<arr2.length; i++){
+            set.add(arr2[i]);
+        }
+
+        System.out.println("Union : " + set.size());
+        System.out.println(set);
+
+        set.clear();
+        for(int i=0; i<arr1.length; i++){
+            set.add(arr1[i]);
+        }
+
+        int count = 0;
+        for(int i=0; i<arr2.length; i++){
+            if(set.contains(arr2[i])){
+                count++;
+                System.out.print(arr2[i] + " ");
+                set.remove(arr2[i]);
+            }
+        }
+
+        System.out.println("Intersection : " + count);
+    }
+    
     public static void main(String[] args) {
         String s = "race";
         String t = "care";
-        System.out.println(isAnangram(s, t));
+        // System.out.println(isAnangram(s, t));
 
         int arr[] = {1, 3, 2, 5, 1, 3, 1, 5, 1};
 
@@ -53,5 +126,16 @@ public class HashingQs {
                 // System.out.println(key);
             }
         }
+
+        // Count Distinct Elements
+        int nums[] = {4, 3, 2, 5, 6, 7, 3, 4, 2, 1};
+        // countDistinctEle(nums);
+
+        // Union & Intersection of 2 Arrays
+        int arr1[] = {7, 3, 9};
+        int arr2[] = {6, 3, 9, 2, 9, 4};
+        System.out.println("union = " + unionofArr(arr1, arr2));
+        System.out.println("Intersection = " + interSection(arr1, arr2));
+        unionAndInterSection(arr1, arr2);
     }
 }

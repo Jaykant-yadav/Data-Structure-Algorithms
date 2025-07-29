@@ -99,6 +99,34 @@ public class HashingQs {
 
         System.out.println("Intersection : " + count);
     }
+
+
+    // getStart -> Helper fnx
+    public static String getStart(HashMap<String, String> tickets){
+        HashMap<String, String> revMap = new HashMap<>();
+
+        for(String key : tickets.keySet()){
+            revMap.put(tickets.get(key), key);
+        }
+
+        for(String key : tickets.keySet()){
+            if(!revMap.containsKey(key)){
+                return key; //starting point
+            }
+        }
+
+        return null;
+    }
+
+    // Find itinerary for tickets
+    public static void itineraryOfTickets(HashMap<String, String> tickets){ // O(n)
+        String start = getStart(tickets);
+        System.out.print(start);
+        for(String key : tickets.keySet()){
+            System.out.print(" -> " + tickets.get(start));
+            start = tickets.get(start);
+        }
+    }
     
     public static void main(String[] args) {
         String s = "race";
@@ -137,5 +165,14 @@ public class HashingQs {
         System.out.println("union = " + unionofArr(arr1, arr2));
         System.out.println("Intersection = " + interSection(arr1, arr2));
         unionAndInterSection(arr1, arr2);
+
+        // Find itinerary for tickets
+        HashMap<String, String> tickets = new HashMap<>();
+        tickets.put("Chennai", "Bengaluru");
+        tickets.put("Mumbai", "Delhi");
+        tickets.put("Goa", "Chennai");
+        tickets.put("Delhi", "Goa");
+
+        itineraryOfTickets(tickets);
     }
 }

@@ -127,6 +127,25 @@ public class HashingQs {
             start = tickets.get(start);
         }
     }
+
+    // Largest SubArray with 0 Sum
+    public static void largestSubArrayWithZeroSum(int nums[]){
+        HashMap<Integer, Integer> maps = new HashMap<>();
+        // (sum, idx)
+
+        int sum = 0;
+        int len = 0;
+        for(int j=0; j<nums.length; j++){
+            sum += nums[j];
+            if(maps.containsKey(sum)){
+                len = Math.max(len, j-maps.get(sum));
+            } else {
+                maps.put(sum, j);
+            }
+        }
+
+        System.out.println("largest subArray with sum as 0 => " + len);
+    }
     
     public static void main(String[] args) {
         String s = "race";
@@ -174,5 +193,12 @@ public class HashingQs {
         tickets.put("Delhi", "Goa");
 
         itineraryOfTickets(tickets);
+
+        System.out.println();
+        // Largest SubArray with 0 Sum
+        int num[] = {15, -2, 2, -8, 1, 7, 10, 23};
+        largestSubArrayWithZeroSum(num);
+
+
     }
 }

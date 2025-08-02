@@ -1,81 +1,53 @@
 import java.util.Arrays;
 
 public class revise {
-    public static int[] binarySearch(int nums[], int target) {
-        int[] ans = new int[2];
-        ans[0] = findFirst(nums, target);
-        ans[1] = findLast(nums, target);
-        return ans;
-    }
+    public static int maxSubArraySum(int arr[]){
+        int currSum = 0;
+        int MaxSum = Integer.MIN_VALUE;
 
-    private static int findFirst(int[] nums, int target) {
-        int low = 0, high = nums.length - 1, res = -1;
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            if (nums[mid] == target) {
-                res = mid;
-                high = mid - 1; // keep searching in left half
-            } else if (nums[mid] < target) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
+        int prefix[] = new int[arr.length];
+        prefix[0] = arr[0];
+
+        for(int i=1; i<prefix.length; i++){
+            prefix[i] = prefix[i-1] + arr[i];
         }
-        return res;
-    }
 
-    private static int findLast(int[] nums, int target) {
-        int low = 0, high = nums.length - 1, res = -1;
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            if (nums[mid] == target) {
-                res = mid;
-                low = mid + 1; // keep searching in right half
-            } else if (nums[mid] < target) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
+        for(int i=0; i<arr.length; i++){
+            for(int j=i; j<arr.length; j++){
+                currSum = i == 0 ? prefix[j] : prefix[j] - prefix[i-1];
+                MaxSum = Math.max(MaxSum, currSum);
             }
+
         }
-        return res;
+
+        return MaxSum;
     }
 
-    public static int kDiffPairs(int arr[], int k) {
-        Arrays.sort(arr);
-        int n = arr.length;
-        int low = 0, high = 1;
-        int countPaire = 0;
-        while (low < n && high < n) {
-            if (low == high || arr[high] - arr[low] < k) {
-                high++;
-            } else if (arr[high] - arr[low] > k) {
-                low++;
-            } else {
-                countPaire++;
-                int currLeft = arr[low];
-                int currRight = arr[high];
-                
-                // skip duplicates
-                while (low < n && arr[low] == currLeft) {
-                    low++;
+    public static int subArrayOfCountk(int nums[], int k){
+        int count = 0;
+        int currSum = 0;
+        for(int i=0; i<nums.length; i++){
+            currSum = 0;
+            for(int j=i; j<nums.length; j++){
+                if(i == j){
+                    currSum = nums[j];
+                }else {
+                    currSum += nums[i] + nums[j];
                 }
-
-                while (high < n && arr[high] == currRight) {
-                    high++;
+                if(currSum == k){
+                    count++;
                 }
             }
-
         }
-
-        return countPaire;
+        return count;
     }
+
 
     public static void main(String[] args) {
-        int arr[] = { 3, 1, 4, 1, 5 };
-        int k = 2;
-        System.out.println(kDiffPairs(arr, k));
-        // int nums[] = binarySearch(arr, k);
-        // printArr(nums);
+        int arr[] = {1, 1, 1};
+        int arrs[] = {1, 2, 3};
+        System.out.println(subArrayOfCountk(arrs, 3));       
+        System.out.println(subArrayOfCountk(arr, 2));       
 
     }
 

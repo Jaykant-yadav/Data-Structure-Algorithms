@@ -1,12 +1,12 @@
-package DSA.Trie;
+package DSA.Trie.TriesQs;
 
-public class Tries {
-    static class Node{
+public class startsWithProblem {
+    static class Node {
         Node[] children = new Node[26]; // 'a' - 'z'
         boolean endOfWord = false;
 
         public Node() {
-            for(int i=0; i<26; i++){
+            for (int i = 0; i < 26; i++) {
                 children[i] = null;
             }
         }
@@ -15,11 +15,11 @@ public class Tries {
     public static Node root = new Node();
 
     // Insert
-    public static void insert(String word){ //O(L)
+    public static void insert(String word) { // O(L)
         Node curr = root;
-        for(int level = 0; level < word.length(); level++){
+        for (int level = 0; level < word.length(); level++) {
             int idx = word.charAt(level) - 'a';
-            if(curr.children[idx] == null){
+            if (curr.children[idx] == null) {
                 curr.children[idx] = new Node();
             }
 
@@ -29,11 +29,11 @@ public class Tries {
         curr.endOfWord = true;
     }
 
-    // Search
-    public static boolean search(String key){ //O(L)
+    // starts With
+    public static boolean startsWith(String prefix){
         Node curr = root;
-        for(int level = 0; level < key.length(); level++){
-            int idx = key.charAt(level) - 'a';
+        for(int i=0; i<prefix.length(); i++){
+            int idx = prefix.charAt(i) - 'a';
             if(curr.children[idx] == null){
                 return false;
             }
@@ -41,17 +41,19 @@ public class Tries {
             curr = curr.children[idx];
         }
 
-        return curr.endOfWord == true;
+        return true;
     }
 
     public static void main(String[] args) {
-        String words[] = {"the", "a", "there", "their", "any", "thee"};
+        String words[] = {"apple", "app", "mango", "man", "woman"};
+        String prefix1 = "app";
+        String prefix2 = "moon";
+
         for(int i=0; i<words.length; i++){
             insert(words[i]);
         }
 
-        System.out.println(search("thee")); //true
-        System.out.println(search("theor"));//false
-
+        System.out.println(startsWith(prefix1)); //true
+        System.out.println(startsWith(prefix2)); //false
     }
 }

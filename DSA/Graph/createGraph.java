@@ -28,7 +28,7 @@ public class createGraph {
          *               | 
          *               4
          */
-
+        // Adjacency List
          int V = 5;
         //  int arr[] = new arr[V];
         @SuppressWarnings("unchecked")
@@ -61,7 +61,7 @@ public class createGraph {
         //  2's neighbours
         for(int i=0; i<graph[2].size(); i++){
             Edge e = graph[2].get(i); //src, dest, wt
-            System.out.println(e.dest); // 1, 2, 3
+            System.out.println(e.dest); // 1, 2, 4
         }
 
 

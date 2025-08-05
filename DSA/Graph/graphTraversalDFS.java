@@ -49,15 +49,32 @@ public class graphTraversalDFS {
 
     public static void dfs(ArrayList<Edge>[] graph, int curr, boolean visit[]){ //O(V+E)
         // visit
-        System.out.print(curr + " ");
-        visit[curr] = true;
+        System.out.print(curr + " "); //print curr
+        visit[curr] = true; // put on true visit curr vertices for
 
         for(int i=0; i<graph[curr].size(); i++){
-            Edge e = graph[curr].get(i);
-            if(!visit[e.dest]){
-                dfs(graph, e.dest, visit);
+            Edge e = graph[curr].get(i); // curr edges
+            if(!visit[e.dest]){ // neighbour visit or not
+                dfs(graph, e.dest, visit); //call recursively
             }
         }
+    }
+
+    // O(V+E)
+    public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean visit[]){
+        if(src == dest){
+            return true;
+        }
+        visit[src] = true;
+        for(int i=0; i<graph[src].size(); i++){
+            Edge e = graph[src].get(i);
+            // e.dest = neighbour
+            if(!visit[e.dest] && hasPath(graph, e.dest, dest, visit)){
+                return true;
+            }
+        }
+
+        return false;
     }
     public static void main(String[] args) {
         /* 
@@ -72,6 +89,7 @@ public class graphTraversalDFS {
         @SuppressWarnings("unchecked")
         ArrayList<Edge> graph[] = new ArrayList[V];
         createGraph(graph);
-        dfs(graph, 0, new boolean[V]);
+        dfs(graph, 0, new boolean[V]); //0 1 3 4 2 5 6
+        System.out.println(hasPath(graph, 0, 5, new boolean[V])); // true
     }
 }

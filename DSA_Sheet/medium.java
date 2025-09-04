@@ -1,6 +1,10 @@
 package DSA_Sheet;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class medium {
+    // Set Matrix Zeroes
     public static void setZeroes(int matrix[][]) { // O(n*m) * (n + m) + (n * m)
         int m = matrix.length;
         int n = matrix[0].length;
@@ -115,17 +119,126 @@ public class medium {
         }
     }
 
+    // Kadan's Algorithm's - O(n)
+    public static int kadansAlgo(int nums[]){
+        if(nums.length == 0) return 0;
+        int maxSum = Integer.MIN_VALUE;
+        int currSum = 0;
+        for(int i=0; i<nums.length; i++){
+            currSum += nums[i];
+            maxSum = Math.max(maxSum, currSum);
+            if(currSum < 0){
+                currSum = 0;
+            }
+        }
+
+        return maxSum;
+    }
+
+    // Sort Colors - Sort an array of 0's, 1's and 2's 
+    // Brute force - > O(n^2)
+    public static int[] sortColor(int nums[]){
+        int c0 = 0, c1 = 0, c2 = 0;
+        for(int i=0; i<nums.length; i++){
+            if(nums[i] == c0){
+                c0++;
+            }
+            if(nums[i] == c1){
+                c1++;
+            }
+            if(nums[i] == c2){
+                c2++;
+            }
+        }
+        int i=0;
+        while (c0 != 0) {
+            nums[i] = 0;
+            c0--; i++;
+        }
+
+        while (c1 != 0 && c0 != 0) {
+            nums[i] = 1;
+            c1--; i++;
+        }
+
+        while (c2 != 0 && c1 != 0) {
+            nums[i] = 2;
+            c2--; i++;
+        }
+
+        return nums;
+    }
+
+    // Optimize Solution -> DNF Algorithms
+    public static int[] sortColor2(int nums[]){
+        int low = 0, mid = 0, high = nums.length-1;
+
+        while (mid <= high) {
+            if(nums[mid] == 0){
+                swap(nums, low, mid);
+                low++; mid++;
+            }else if(nums[mid] == 1){
+                mid++;
+            }else{
+                swap(nums, mid, high);
+                high--;
+            }
+        }
+
+        return nums;
+    }
+
+    // Permutation 
+    private static void swap(int arr[], int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void getPermutation(int nums[], int idx, List<List<Integer>> ans){
+        if(idx == nums.length){
+            List<Integer> perm = new ArrayList<>();
+            for(int num : nums) perm.add(num);
+            ans.add(perm);
+            return;
+        }
+
+        for(int i=idx; i<nums.length; i++){
+            swap(nums, idx, i);
+            getPermutation(nums, idx+1, ans);
+            swap(nums, idx, i);
+        }
+    }
+
     public static void main(String[] args) {
         int matrix[][] = { { 1, 1, 1 }, { 1, 0, 1 }, { 1, 1, 1 } };
         // setZeroes(matrix);
         // setZeroes2(matrix);
-        setZeroes3(matrix);
+        // setZeroes3(matrix);
+/* 
+        int arr[] = {1, 2, 3, 4};
+        System.out.println(kadansAlgo(arr)); */
 
-        for (int i = 0; i < matrix.length; i++) {
+        int arr[] = {2, 0, 2, 1, 1, 0};
+        printArr(sortColor2(arr));
+        
+
+       /*  List<List<Integer>> ans = new ArrayList<>();
+        int arr[] = {3, 2, 1};
+        getPermutation(arr, 0, ans);
+        System.out.println(ans); */
+
+        /* for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 System.out.print(matrix[i][j] + " ");
             }
             System.out.println();
+        } */
+    }
+
+    public static void printArr(int nums[]){
+        for(int i=0; i<nums.length; i++){
+            System.out.print(nums[i] + " ");
         }
     }
 }

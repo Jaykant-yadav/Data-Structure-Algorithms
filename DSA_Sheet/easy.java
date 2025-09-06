@@ -204,12 +204,130 @@ public class easy {
         return new int[]{a, b};
     }
 
+    // Merge Sorted Array -> O(m+n)
+    // Approach - I
+    public static void mergeSortedArrays(int nums1[], int nums2[]){
+        int m = nums1.length;
+        int n = nums2.length;
+        int merge[] = new int[m+n];
+        int i = 0, j = 0, k = 0;
+
+        while (i < m && j < n) {
+            if(nums1[i] > nums2[j]){
+                merge[k++] = nums2[j++];
+            }else{
+                merge[k++] = nums1[i++];
+            }
+        }
+
+        while (i < m) {
+            merge[k++] = nums1[i++];
+        }
+
+        while (j < n) {
+            merge[k++] = nums2[j++];
+        }
+
+        for(int p=0; p<m+n; p++){
+            nums1[p] = merge[p];
+        }
+    }
+
+    // According to leetcode Approach -> O(m+n), O(1)
+    public static void mergeSortedArrays2(int nums1[], int nums2[], int n, int m){
+        int i = m-1;
+        int j = n-1;
+        int x = m + n - 1;
+
+        while (i >= 0 && j >= 0) {
+            if(nums1[i] < nums2[j]){
+                nums1[x--] = nums2[j--];
+            }else {
+                nums1[x--] = nums1[i--];
+            }
+        }
+
+        while (i >= 0) {
+            nums1[x--] = nums1[i--];
+        }
+
+        while (j >= 0) {
+            nums1[x--] = nums2[j--];
+        }
+    }
+
+    // Single Element
+    // Approach - I -> Freq Stored -> Brute Force -> this approach doesn't appear for negative numbers
+    public static int singleEle(int nums[]){
+        int max = Integer.MIN_VALUE;
+        for(int i=0; i<nums.length; i++){
+            max = Math.max(max, nums[i]);
+        }
+
+        int freq[] = new int[max+1];
+        for(int i=0; i<nums.length; i++){
+            freq[nums[i]]++;
+        }
+
+        for(int j=0; j<freq.length; j++){
+            if(freq[j] == 1){
+                return j;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int singleEle3(int nums[]){
+        Arrays.sort(nums);
+        for(int i=0; i<nums.length-1; i+=2){
+            if(nums[i] != nums[i+1]){
+                return nums[i];
+            }
+        }
+
+        return nums[nums.length-1];
+    }
+
+    // Approach - II -> Hash Table
+    public static int singleEle2(int nums[]){
+        HashMap<Integer, Integer> Hs = new HashMap<>();
+        for(int i=0; i<nums.length; i++){
+            Hs.put(nums[i], Hs.getOrDefault(nums[i], 0) + 1);
+        }
+
+        for(int num : Hs.keySet()){
+            if(Hs.get(num) == 1){
+                return num;
+            }
+        }
+
+        return -1;
+    }
+
+    // Approach - III -> Using XOR -> O(n), O(1) -> Optimal Approach
+    public static int singleEle4(int num[]){
+        int ans = 0;
+        for(int i=0; i<num.length; i++){
+            ans = ans ^ num[i];
+        }
+
+        return ans;
+    }
+
+
     public static void main(String[] args) {
+        // int nums[] = {4,1,2,1,2};
+        int nums[] = {2, 2, 1};
+        // int nums[] = {2, 3, 2, 3, 5};
+        // System.out.println(singleEle3(nums));
+        // System.out.println(singleEle2(nums));
+        System.out.println(singleEle4(nums));
         // int nums[] = {3, 2, 3};
         // int nums[] = {};
         // int nums[] = {7, 7, 7, 7, 7};
         // int nums[] = {1, 2, 2, 3, 4, 5};
-        int nums[] = {2,2,1,1,1,2,2};
+        // int nums[] = {2,2,1,1,1,2,2};
         // System.out.println(majorityElement(nums));
     /*     System.out.println(majorityElement2(nums));
         System.out.println(majorityElement3(nums));
@@ -218,11 +336,17 @@ public class easy {
 
         // int grid[][] = {{1, 3}, {2, 2}};
         int grid[][] = {{9,1,7},{8,9,2},{3,4,6}};
-        printArr(findMissingAndRepeatedValues(grid));
-        printArr(findMissingAndRepeatedValues2(grid));
+        // printArr(findMissingAndRepeatedValues(grid));
+        // printArr(findMissingAndRepeatedValues2(grid));
 
         // System.out.println(PascalTringle(0));
         // System.out.println(PascalTringle2(3));
+/* 
+        int nums1[] = {1, 2, 3, 0, 0, 0};
+        int nums2[] = {2, 5, 6};
+        mergeSortedArrays2(nums1, nums2, 3, 3); */
+        // printArr(mergeSortedArrays2(nums1, nums2, 3, 3));
+        // printArr(nums1);
     }
 
     public static void printArr(int arr[]){

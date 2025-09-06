@@ -1,6 +1,8 @@
 package DSA_Sheet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class medium {
@@ -136,7 +138,7 @@ public class medium {
     }
 
     // Sort Colors - Sort an array of 0's, 1's and 2's 
-    // Brute force - > O(n^2)
+    // Brute force - > O(n) -> O(1)
     public static int[] sortColor(int nums[]){
         int c0 = 0, c1 = 0, c2 = 0;
         for(int i=0; i<nums.length; i++){
@@ -169,7 +171,7 @@ public class medium {
         return nums;
     }
 
-    // Optimize Solution -> DNF Algorithms
+    // Optimize Solution -> DNF Algorithms -> O(n) -> O(1)
     public static int[] sortColor2(int nums[]){
         int low = 0, mid = 0, high = nums.length-1;
 
@@ -186,6 +188,76 @@ public class medium {
         }
 
         return nums;
+    }
+
+    // Best Time to Buy and Sell Stock 
+    public static int buyAndSellStock(int price[]){
+        int buyPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        for(int i=0; i<price.length; i++){
+            int sellPrice = price[i];
+            if(buyPrice < sellPrice){
+                int profit = sellPrice - buyPrice;
+                maxProfit = Math.max(maxProfit, profit);
+            }else{
+                buyPrice = sellPrice;
+            }
+        }
+
+        return maxProfit;
+    }
+
+    // Power (X, N)
+    public static double powerXn(double x, double n){
+        if(n == 0){
+            return 1;
+        }
+
+        double xn1 = powerXn(x, n-1);
+        double xn =  xn1 * x;
+
+        return xn;
+    }
+
+    public static int powerXn2(int x, int n){
+        if (n == 0) {
+            return 1;
+        }
+
+        int halfPower = powerXn2(x, n/2);
+        int halfPowerSq = halfPower * halfPower;
+
+        if(n % 2 != 0){
+            halfPowerSq = x * halfPowerSq;
+        }
+
+        return halfPowerSq;
+    }
+
+    // 3Sum
+    // Brute Force approach - O(n ^ 3), O()
+    public static List<List<Integer>> threeSum(int nums[]){
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        for(int i=0; i<nums.length-2; i++){
+            for(int j=i+1; j<nums.length-1; j++){
+                List<Integer> ans = new ArrayList<>();
+                for(int k=j+1; k<nums.length; k++){
+                    int sum = nums[i] + nums[j] + nums[k];
+                    if(sum == 0){
+                        ans.add(nums[i]);
+                        ans.add(nums[j]);
+                        ans.add(nums[k]);
+                        if(!result.contains(ans)){
+                            result.add(ans);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return result;
     }
 
     // Permutation 
@@ -219,8 +291,17 @@ public class medium {
         int arr[] = {1, 2, 3, 4};
         System.out.println(kadansAlgo(arr)); */
 
-        int arr[] = {2, 0, 2, 1, 1, 0};
-        printArr(sortColor2(arr));
+        /* int arr[] = {2, 0, 2, 1, 1, 0};
+        printArr(sortColor2(arr)); */
+
+        // int price[] = {-7,6,-4,3,-1};
+        // System.out.println(buyAndSellStock(price));
+
+        // System.out.println(powerXn(2.000000, 5));
+        // System.out.println(powerXn2(2, 5));
+
+        int nums[] = {};
+        System.out.println(threeSum(nums));
         
 
        /*  List<List<Integer>> ans = new ArrayList<>();

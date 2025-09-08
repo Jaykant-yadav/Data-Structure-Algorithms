@@ -278,7 +278,7 @@ public class easy {
         return -1;
     }
 
-    public static int singleEle3(int nums[]){
+    public static int singleEle3(int nums[]){ // O(n log n) -> O(1)
         Arrays.sort(nums);
         for(int i=0; i<nums.length-1; i+=2){
             if(nums[i] != nums[i+1]){
@@ -289,14 +289,14 @@ public class easy {
         return nums[nums.length-1];
     }
 
-    // Approach - II -> Hash Table
+    // Approach - II -> Hash Table -> O(n) + O(n) -> (n) & sc -> O(n)
     public static int singleEle2(int nums[]){
         HashMap<Integer, Integer> Hs = new HashMap<>();
-        for(int i=0; i<nums.length; i++){
+        for(int i=0; i<nums.length; i++){ // O(n)
             Hs.put(nums[i], Hs.getOrDefault(nums[i], 0) + 1);
         }
 
-        for(int num : Hs.keySet()){
+        for(int num : Hs.keySet()){ //O(n)
             if(Hs.get(num) == 1){
                 return num;
             }

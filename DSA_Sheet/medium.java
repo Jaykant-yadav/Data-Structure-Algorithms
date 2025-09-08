@@ -1,9 +1,13 @@
 package DSA_Sheet;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+
+import DSA.Arrays.subArrays;
 
 public class medium {
     // Set Matrix Zeroes
@@ -122,14 +126,15 @@ public class medium {
     }
 
     // Kadan's Algorithm's - O(n)
-    public static int kadansAlgo(int nums[]){
-        if(nums.length == 0) return 0;
+    public static int kadansAlgo(int nums[]) {
+        if (nums.length == 0)
+            return 0;
         int maxSum = Integer.MIN_VALUE;
         int currSum = 0;
-        for(int i=0; i<nums.length; i++){
+        for (int i = 0; i < nums.length; i++) {
             currSum += nums[i];
             maxSum = Math.max(maxSum, currSum);
-            if(currSum < 0){
+            if (currSum < 0) {
                 currSum = 0;
             }
         }
@@ -137,51 +142,55 @@ public class medium {
         return maxSum;
     }
 
-    // Sort Colors - Sort an array of 0's, 1's and 2's 
+    // Sort Colors - Sort an array of 0's, 1's and 2's
     // Brute force - > O(n) -> O(1)
-    public static int[] sortColor(int nums[]){
+    public static int[] sortColor(int nums[]) {
         int c0 = 0, c1 = 0, c2 = 0;
-        for(int i=0; i<nums.length; i++){
-            if(nums[i] == c0){
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == c0) {
                 c0++;
             }
-            if(nums[i] == c1){
+            if (nums[i] == c1) {
                 c1++;
             }
-            if(nums[i] == c2){
+            if (nums[i] == c2) {
                 c2++;
             }
         }
-        int i=0;
+        int i = 0;
         while (c0 != 0) {
             nums[i] = 0;
-            c0--; i++;
+            c0--;
+            i++;
         }
 
         while (c1 != 0 && c0 != 0) {
             nums[i] = 1;
-            c1--; i++;
+            c1--;
+            i++;
         }
 
         while (c2 != 0 && c1 != 0) {
             nums[i] = 2;
-            c2--; i++;
+            c2--;
+            i++;
         }
 
         return nums;
     }
 
     // Optimize Solution -> DNF Algorithms -> O(n) -> O(1)
-    public static int[] sortColor2(int nums[]){
-        int low = 0, mid = 0, high = nums.length-1;
+    public static int[] sortColor2(int nums[]) {
+        int low = 0, mid = 0, high = nums.length - 1;
 
         while (mid <= high) {
-            if(nums[mid] == 0){
+            if (nums[mid] == 0) {
                 swap(nums, low, mid);
-                low++; mid++;
-            }else if(nums[mid] == 1){
+                low++;
                 mid++;
-            }else{
+            } else if (nums[mid] == 1) {
+                mid++;
+            } else {
                 swap(nums, mid, high);
                 high--;
             }
@@ -190,16 +199,16 @@ public class medium {
         return nums;
     }
 
-    // Best Time to Buy and Sell Stock 
-    public static int buyAndSellStock(int price[]){
+    // Best Time to Buy and Sell Stock
+    public static int buyAndSellStock(int price[]) {
         int buyPrice = Integer.MAX_VALUE;
         int maxProfit = 0;
-        for(int i=0; i<price.length; i++){
+        for (int i = 0; i < price.length; i++) {
             int sellPrice = price[i];
-            if(buyPrice < sellPrice){
+            if (buyPrice < sellPrice) {
                 int profit = sellPrice - buyPrice;
                 maxProfit = Math.max(maxProfit, profit);
-            }else{
+            } else {
                 buyPrice = sellPrice;
             }
         }
@@ -208,26 +217,26 @@ public class medium {
     }
 
     // Power (X, N)
-    public static double powerXn(double x, double n){
-        if(n == 0){
-            return 1;
-        }
-
-        double xn1 = powerXn(x, n-1);
-        double xn =  xn1 * x;
-
-        return xn;
-    }
-
-    public static int powerXn2(int x, int n){
+    public static double powerXn(double x, double n) {
         if (n == 0) {
             return 1;
         }
 
-        int halfPower = powerXn2(x, n/2);
+        double xn1 = powerXn(x, n - 1);
+        double xn = xn1 * x;
+
+        return xn;
+    }
+
+    public static int powerXn2(int x, int n) {
+        if (n == 0) {
+            return 1;
+        }
+
+        int halfPower = powerXn2(x, n / 2);
         int halfPowerSq = halfPower * halfPower;
 
-        if(n % 2 != 0){
+        if (n % 2 != 0) {
             halfPowerSq = x * halfPowerSq;
         }
 
@@ -235,20 +244,20 @@ public class medium {
     }
 
     // 3Sum
-    // Brute Force approach - O(n ^ 3), O()
-    public static List<List<Integer>> threeSum(int nums[]){
+    // Brute Force approach - O(n ^ 3), O(n)
+    public static List<List<Integer>> threeSum(int nums[]) {
         Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<>();
-        for(int i=0; i<nums.length-2; i++){
-            for(int j=i+1; j<nums.length-1; j++){
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
                 List<Integer> ans = new ArrayList<>();
-                for(int k=j+1; k<nums.length; k++){
+                for (int k = j + 1; k < nums.length; k++) {
                     int sum = nums[i] + nums[j] + nums[k];
-                    if(sum == 0){
+                    if (sum == 0) {
                         ans.add(nums[i]);
                         ans.add(nums[j]);
                         ans.add(nums[k]);
-                        if(!result.contains(ans)){
+                        if (!result.contains(ans)) {
                             result.add(ans);
                         }
                     }
@@ -260,24 +269,177 @@ public class medium {
         return result;
     }
 
-    // Permutation 
-    private static void swap(int arr[], int i, int j){
+    // Optimal Approach -> O(n)
+    public static List<List<Integer>> threeSum2(int nums[]) {
+        List<List<Integer>> resuList = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            int j = i + 1;
+            int k = nums.length - 1;
+
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+
+                if (sum == 0) {
+                    resuList.add(Arrays.asList(nums[i], nums[j], nums[k]));
+
+                    while (j < k && nums[j] == nums[j + 1]) {
+                        j++;
+                    }
+
+                    while (j < k && nums[k] == nums[k - 1]) {
+                        k--;
+                    }
+                    k--;
+                    j++;
+                } else if (sum < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+
+        return resuList;
+    }
+
+    // 4 Sum
+    // Optimal Approach - O(n ^ 3) -> O(1)
+    public static List<List<Integer>> fourSum(int nums[], int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> resList = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+
+            for (int j = i + 1; j < nums.length - 2; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1])
+                    continue;
+
+                int k = j + 1;
+                int l = nums.length - 1;
+
+                while (k < l) {
+                    long sum = (long) nums[i] + nums[j] + nums[k] + nums[l];
+                    if (sum == target) {
+                        resList.add(Arrays.asList(nums[i], nums[j], nums[k], nums[l]));
+
+                        while (k < l && nums[k] == nums[k + 1])
+                            k++;
+                        while (k < l && nums[l] == nums[l - 1])
+                            l--;
+
+                        k++;
+                        l--;
+                    } else if (sum < target) {
+                        k++;
+                    } else {
+                        l--;
+                    }
+                }
+            }
+        }
+
+        return resList;
+    }
+
+    // Brute Force - > O(n ^ 4)
+    public static List<List<Integer>> fourSum3(int nums[], int target){
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        int n = nums.length;
+        for(int i=0; i<n-3; i++){
+            for(int j=i+1; j<n-2; j++){
+                for(int k=j+1; k<n-1; k++){
+                    for(int l=k+1; l<n; l++){
+                        List<Integer> ans = new ArrayList<>();
+                        int sum = nums[i] + nums[j] + nums[k] + nums[l];
+                        if(sum == target){
+                            if(!res.contains(ans)){
+                                // ans.add(Arrays.asList(nums[i], nums[j], nums[k], nums[l])); 
+                                ans.add(nums[i]);
+                                ans.add(nums[j]);
+                                ans.add(nums[k]);
+                                ans.add(nums[l]);
+
+                                res.add(ans);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
+    // Approach - II
+    public static List<List<Integer>> fourSum2(int nums[], int target){
+        Arrays.sort(nums);
+        HashSet<List<Integer>> set = new HashSet<>();
+        int n = nums.length;
+        
+        for(int i=0; i<n-3; i++){
+            for(int j=i+1; j<n-2; j++){
+                for(int k=j+1; k<n-1; k++){
+                    long newTerget = target;
+                    newTerget -= nums[i];
+                    newTerget -= nums[j];
+                    newTerget -= nums[k];
+                    
+                    // binary Search
+                    int low = k+1;
+                    int high = n-1;
+                    
+                    while (low <= high) {
+                        int mid = low + (high - low) / 2;
+                        
+                        if(nums[mid] == newTerget){
+                            List<Integer> ans = new ArrayList<>();
+                            ans.add(nums[i]);
+                            ans.add(nums[j]);
+                            ans.add(nums[k]);
+                            ans.add(nums[mid]);
+                            
+                            set.add(ans);
+                            break;
+                        }else if(nums[mid] < newTerget){
+                            low = mid + 1;
+                        }else{
+                            high = mid - 1;
+                        }
+                    }
+                }
+            }
+        }
+        List<List<Integer>> reLists = new ArrayList<>(set);
+
+        return reLists;
+    }
+
+    // Permutation
+    private static void swap(int arr[], int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
 
-    public static void getPermutation(int nums[], int idx, List<List<Integer>> ans){
-        if(idx == nums.length){
+    public static void getPermutation(int nums[], int idx, List<List<Integer>> ans) {
+        if (idx == nums.length) {
             List<Integer> perm = new ArrayList<>();
-            for(int num : nums) perm.add(num);
+            for (int num : nums)
+                perm.add(num);
             ans.add(perm);
             return;
         }
 
-        for(int i=idx; i<nums.length; i++){
+        for (int i = idx; i < nums.length; i++) {
             swap(nums, idx, i);
-            getPermutation(nums, idx+1, ans);
+            getPermutation(nums, idx + 1, ans);
             swap(nums, idx, i);
         }
     }
@@ -287,12 +449,15 @@ public class medium {
         // setZeroes(matrix);
         // setZeroes2(matrix);
         // setZeroes3(matrix);
-/* 
-        int arr[] = {1, 2, 3, 4};
-        System.out.println(kadansAlgo(arr)); */
+        /*
+         * int arr[] = {1, 2, 3, 4};
+         * System.out.println(kadansAlgo(arr));
+         */
 
-        /* int arr[] = {2, 0, 2, 1, 1, 0};
-        printArr(sortColor2(arr)); */
+        /*
+         * int arr[] = {2, 0, 2, 1, 1, 0};
+         * printArr(sortColor2(arr));
+         */
 
         // int price[] = {-7,6,-4,3,-1};
         // System.out.println(buyAndSellStock(price));
@@ -300,25 +465,31 @@ public class medium {
         // System.out.println(powerXn(2.000000, 5));
         // System.out.println(powerXn2(2, 5));
 
-        int nums[] = {};
-        System.out.println(threeSum(nums));
-        
+        int nums[] = { 1, 0, -1, 0, -2, 2 };
+        // int nums[] = { 2, 2, 2, 2, 2 };
+        System.out.println(fourSum(nums, 0));
+        System.out.println(fourSum2(nums, 0));
+        System.out.println(fourSum3(nums, 0));
 
-       /*  List<List<Integer>> ans = new ArrayList<>();
-        int arr[] = {3, 2, 1};
-        getPermutation(arr, 0, ans);
-        System.out.println(ans); */
+        /*
+         * List<List<Integer>> ans = new ArrayList<>();
+         * int arr[] = {3, 2, 1};
+         * getPermutation(arr, 0, ans);
+         * System.out.println(ans);
+         */
 
-        /* for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
-        } */
+        /*
+         * for (int i = 0; i < matrix.length; i++) {
+         * for (int j = 0; j < matrix[0].length; j++) {
+         * System.out.print(matrix[i][j] + " ");
+         * }
+         * System.out.println();
+         * }
+         */
     }
 
-    public static void printArr(int nums[]){
-        for(int i=0; i<nums.length; i++){
+    public static void printArr(int nums[]) {
+        for (int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + " ");
         }
     }

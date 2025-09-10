@@ -2,7 +2,7 @@ package DSA_Sheet;
 
 import java.util.*;
 
-public class easy {
+public class ArraysEasyQS {
     // Majority Element 
     // Approach - I using sorting - O(n logn)
     public static int majorityElements(int nums[]){
@@ -55,7 +55,6 @@ public class easy {
         int freq = 1, ans = nums[0];
 
         for(int i=1; i<nums.length; i++){
-
             if(nums[i] == nums[i-1]){
                 freq++;
             }else {
@@ -315,6 +314,17 @@ public class easy {
         return ans;
     }
 
+    // Contains Duplicate II
+    public static boolean DuplicateII(int nums[], int k){        
+        for(int i=0; i<nums.length; i++){
+            for(int j=i+1; j<nums.length; j++){
+                if(nums[i] == nums[j] && j-i <= k){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         // int nums[] = {4,1,2,1,2};
@@ -347,6 +357,10 @@ public class easy {
         mergeSortedArrays2(nums1, nums2, 3, 3); */
         // printArr(mergeSortedArrays2(nums1, nums2, 3, 3));
         // printArr(nums1);
+
+        int nums1[] = {1, 2, 3, 1};
+        int k = 3;
+        System.out.println(DuplicateII(nums1, k));
     }
 
     public static void printArr(int arr[]){

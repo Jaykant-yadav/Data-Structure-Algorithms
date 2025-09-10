@@ -1,15 +1,8 @@
 package DSA_Sheet;
+import java.util.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
-import DSA.Arrays.subArrays;
-
-public class medium {
+import DSA.Arrays.linearSearch;
+public class ArraysMediumQS {
     // Set Matrix Zeroes
     public static void setZeroes(int matrix[][]) { // O(n*m) * (n + m) + (n * m)
         int m = matrix.length;
@@ -81,6 +74,7 @@ public class medium {
         int m = matrix.length;
         int n = matrix[0].length;
 
+        // First Row
         for (int i = 0; i < m; i++) {
             if (matrix[i][0] == 0) {
                 firstRow = true;
@@ -88,6 +82,7 @@ public class medium {
             }
         }
 
+        // First Col
         for (int j = 0; j < n; j++) {
             if (matrix[0][j] == 0) {
                 firstCol = true;
@@ -95,6 +90,7 @@ public class medium {
             }
         }
 
+        // First row and Col in assign Zero
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (matrix[i][j] == 0) {
@@ -104,6 +100,7 @@ public class medium {
             }
         }
 
+        // Inner Matrix
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
                 if (matrix[i][0] == 0 || matrix[0][j] == 0) {
@@ -421,6 +418,86 @@ public class medium {
         return reLists;
     }
 
+    //  Longest Consecutive Sequence
+    // Brute Force -> O(n ^ 2)
+    public static int longestConsecutive(int[] nums) {
+        int longest = 1;
+        for(int i=0; i<nums.length; i++){
+            int x = nums[i];
+            int count = 1;
+
+            while (linearSearch(nums, x+1)) {
+                x = x + 1;
+                count++;                
+            }
+
+            longest = Math.max(longest, count);
+        }
+        return longest;
+    }
+
+    private static boolean linearSearch(int nums[], int x){
+        for(int num : nums){
+            if(num == x){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Better Approach -> O(n logn)
+    public static int longestConsecutive2(int nums[]){
+        Arrays.sort(nums);
+        int longest = 1;
+        int cnt = 0;
+        int lastSmaller = Integer.MAX_VALUE;
+
+        for(int i=0; i<nums.length; i++){
+            if(nums[i]-1 == lastSmaller){
+                cnt++;
+                lastSmaller = nums[i];
+            }else if(lastSmaller != nums[i]){
+                cnt = 1;
+                lastSmaller = nums[i];
+            }
+            longest = Math.max(longest, cnt);
+        }
+
+        return longest;
+    }
+
+    // Optimal Approach -> O(n)
+    public static int longestConsecutive3(int nums[]){
+        int n = nums.length;
+        if (n == 0)
+            return 0;
+
+        int longest = 1;
+        Set<Integer> set = new HashSet<>();
+
+        // put all the array elements into set
+        for (int i = 0; i < n; i++) {
+            set.add(nums[i]);
+        }
+
+        // Find the longest sequence
+        for (int it : set) {
+            // if 'it' is a starting number
+            if (!set.contains(it - 1)) {
+                // find consecutive numbers
+                int cnt = 1;
+                int x = it;
+                while (set.contains(x + 1)) {
+                    x = x + 1;
+                    cnt = cnt + 1;
+                }
+                longest = Math.max(longest, cnt);
+            }
+        }
+        return longest;
+    }
+
     // Permutation
     private static void swap(int arr[], int i, int j) {
         int temp = arr[i];
@@ -465,11 +542,11 @@ public class medium {
         // System.out.println(powerXn(2.000000, 5));
         // System.out.println(powerXn2(2, 5));
 
-        int nums[] = { 1, 0, -1, 0, -2, 2 };
+        int nums[] = { 0,3,7,2,5,8,4,6,0,1 };
         // int nums[] = { 2, 2, 2, 2, 2 };
-        System.out.println(fourSum(nums, 0));
-        System.out.println(fourSum2(nums, 0));
-        System.out.println(fourSum3(nums, 0));
+        // System.out.println(fourSum(nums, 0));
+        // System.out.println(fourSum2(nums, 0));
+        // System.out.println(fourSum3(nums, 0));
 
         /*
          * List<List<Integer>> ans = new ArrayList<>();
@@ -486,6 +563,13 @@ public class medium {
          * System.out.println();
          * }
          */
+
+         int n[] = {0,3,7,2,5,8,4,6,0,1};
+         int n2[] = {100,4,200,1,3,2};
+         int n3[] = {1, 0, 1, 2};
+        System.out.println(longestConsecutive2(n));
+        System.out.println(longestConsecutive(n2));
+        System.out.println(longestConsecutive(n3));
     }
 
     public static void printArr(int nums[]) {

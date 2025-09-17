@@ -104,11 +104,12 @@ public class HashingQs {
     // getStart -> Helper fnx
     public static String getStart(HashMap<String, String> tickets){
         HashMap<String, String> revMap = new HashMap<>();
-
+        // Reverse Order in Store tickets like - before - From -> To and After That To -> From
         for(String key : tickets.keySet()){
             revMap.put(tickets.get(key), key);
         }
 
+        // Compare to tickets vs Revmap and find Starting Points
         for(String key : tickets.keySet()){
             if(!revMap.containsKey(key)){
                 return key; //starting point
@@ -133,8 +134,8 @@ public class HashingQs {
         HashMap<Integer, Integer> maps = new HashMap<>();
         // (sum, idx)
 
-        int sum = 0;
-        int len = 0;
+        int sum = 0; 
+        int len = 0; //subArray of length
         for(int j=0; j<nums.length; j++){
             sum += nums[j];
             if(maps.containsKey(sum)){

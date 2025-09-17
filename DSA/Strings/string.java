@@ -12,6 +12,7 @@ public class string {
     }
 
     //Company -> INTUITE
+    // Valid Palindrome
     public static boolean panlindrome(String str){//O(n)
         for(int i=0; i<str.length()/2; i++) {
             if(str.charAt(i) != str.charAt(str.length()-1-i)){
@@ -22,6 +23,7 @@ public class string {
         return true;
     }
 
+    // Get Shortest Path
     public static float getShortestPath(String str){
         int x = 0, y = 0;
 

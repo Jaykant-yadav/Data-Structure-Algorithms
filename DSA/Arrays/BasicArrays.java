@@ -3,6 +3,45 @@ package DSA.Arrays;
 import java.util.*;
 
 public class BasicArrays {
+    // Insertion
+    public static void insertion(int arr3[], int newArr[], int n) {
+        /*
+         * Types of Insertion
+         * At the end (append)
+         * At the beginning
+         * At a specific index
+         */
+
+        // Create a new array with one extra slot
+        int pos = 2;
+        int element = 30;
+
+        // Copy elements before position
+        for (int i = 0; i < pos; i++) {
+            newArr[i] = arr3[i];
+        }
+
+        for (int i = n; i > pos; i--) {
+            newArr[i] = arr3[i - 1];
+        }
+        // Insert the element
+        newArr[pos] = element;
+    }
+
+    // Deletion in Array
+    public static void deletion(int arr[], int pos, int newArr[]) {
+        int n = arr.length;
+        // Copy all elements before pos
+        for(int i=0; i<pos; i++) {
+            newArr[i] = arr[i];
+        }
+        // Copy all elements after pos, shifted one index to the left
+        for(int i=pos; i<n-1; i++){
+            newArr[i] = arr[i+1];
+        }
+
+    }
+
     public static void update(int arr[], int nonChangable) {
         nonChangable = 10;
         for(int i=0; i<arr.length; i++) {
@@ -12,7 +51,7 @@ public class BasicArrays {
     public static void main(String args[]) {
 
         //Crearting An Array
-
+        int array[];
         int arr[] = new int[5];
         int arr1[] = {1, 2, 3, 4, 5}; 
 

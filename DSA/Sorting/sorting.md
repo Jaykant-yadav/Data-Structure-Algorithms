@@ -10,6 +10,7 @@
 - [Insertion Sort O(n2)]() 
 -> Pick an element (from unsorted part) & place in the right pos in sorted part . [video Link](https://www.youtube.com/watch?v=wWhAhp6PIuQ)
 - [Counting Sort - Advanced O(n + range)]()
+- [Cyclic Sort - Advanced O(1 to n)]()
 <hr>
 
 ### Reverse Order Sorting Concept

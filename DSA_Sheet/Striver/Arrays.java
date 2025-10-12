@@ -399,10 +399,75 @@ public class Arrays {
         return xor;
     }
 
+    // Find Second Smallest and Second Largest Element in an array
+    public static void smallestAndLargestEle2(int nums[], int n){
+        java.util.Arrays.sort(nums);
+        if(n == 0 || n == 1){
+            System.out.println(-1);
+            System.out.println(" ");
+            System.out.println(-1);
+            System.out.println("\n");
+        }
+
+        int smallest = nums[1];
+        int largest = nums[n-2];
+        System.out.println("Smallest : " + smallest);
+        System.out.println("Largest : " + largest);
+    }
+
+    public static void smallestAndLargestEle(int nums[], int i){
+        int largest = nums[0];
+        if(nums.length == i){
+            return;
+        }
+        
+        if(nums[i] > largest){
+            largest = nums[i];
+            smallestAndLargestEle(nums, i+1);
+        }
+        System.out.println(largest);
+        
+    }
+
+    // Better Approach
+    // Second Largest
+    public static int smallestAndLargestEle3(int nums[]){
+        int largest = nums[0];
+        int secLargest = -1;
+
+        for(int i=1; i<nums.length; i++){
+            if(nums[i] > largest){
+                secLargest = largest;
+                largest = nums[i];
+            }else if(nums[i] < largest && nums[i] > secLargest){
+                secLargest = nums[i];
+            }
+        }
+
+        return secLargest;
+    }
+
+    // Second Smallest
+    public static int smallestAndLargestEle4(int nums[]){
+        int smallest = nums[0];
+        int secSmallest = Integer.MAX_VALUE;
+
+        for(int i=1; i<nums.length; i++){
+            if(nums[i] < smallest){
+                secSmallest = smallest;
+                smallest = nums[i];
+            }else if(nums[i] != smallest && nums[i] < secSmallest){
+                secSmallest = nums[i];
+            }
+        }
+
+        return secSmallest;
+    }
+
     public static void main(String[] args) {
-        int nums[] = {2, 2, 1};
-        System.out.println(singleNumber3(nums));
-        // System.out.println(6^2);
+        int nums[] = {2, 5, 8, 41, 65, 7};
+        // smallestAndLargestEle(nums, 0);
+        System.out.println(smallestAndLargestEle4(nums));
     }
 
     public static void printArr(int nums[]) {

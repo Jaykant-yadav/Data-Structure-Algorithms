@@ -78,17 +78,19 @@ public class ArraysMedium {
         int n = nums.length;
 
         while (right < n) {
+            // if less then of k means substract left ele with curr sum and leff increase;
             while (left <= right && sum > k) {
                 sum -= nums[left];
                 left++;
             }
 
+            // if sum equal to valid k than calculate max length
             if(sum == k){
                 maxLen = Math.max(maxLen, right-left+1);
             }
-            right++;
+            right++; // increase
             if(right < n){
-                sum += nums[right];
+                sum += nums[right]; // calculate sum with right element
             }
         }
 

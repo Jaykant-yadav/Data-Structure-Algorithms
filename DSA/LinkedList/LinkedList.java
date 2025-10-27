@@ -136,7 +136,7 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
-        // Craete Linked List
+        // Create Linked List
         LinkedList ll = new LinkedList();
         ll.printLinkedList(); // null
         // add data

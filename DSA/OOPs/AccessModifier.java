@@ -16,3 +16,7 @@ class BankAccount {
         password = pwd;
     }
 }
+
+/* 
+ * In Java class doesn't private or protected because we are not allow to another class use or create object.
+ */
